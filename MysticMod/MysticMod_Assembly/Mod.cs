@@ -121,8 +121,8 @@ namespace MysticFix
 						colliders=block.GetComponentsInChildren<BoxCollider>();
 						foreach(BoxCollider collider in colliders)
 						{
-							collider.material.staticFriction=0.0f;
-							collider.material.dynamicFriction=0.0f;
+							collider.material.staticFriction=0.01f;
+							collider.material.dynamicFriction=0.01f;
 							collider.material.frictionCombine=PhysicMaterialCombine.Minimum;
 						}
 						break;	
