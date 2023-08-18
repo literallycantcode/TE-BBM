@@ -39,9 +39,13 @@ namespace MysticFix
 				//starting to work on block tweaks
 				switch(block.name)
 				{
+					case "GripPad":
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						break;
 					case "MetalBlade":
 						block.GetComponent<Rigidbody>().angularDrag=0;
 						block.GetComponent<Rigidbody>().drag=0;
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 						block.GetComponent<ConfigurableJoint>().breakForce=80000.0f;
 						block.GetComponent<ConfigurableJoint>().breakTorque=80000.0f;
 						colliders=block.GetComponentsInChildren<BoxCollider>();
@@ -58,6 +62,7 @@ namespace MysticFix
 						block.GetComponent<ConfigurableJoint>().breakForce=80000.0f;
 						block.GetComponent<ConfigurableJoint>().breakTorque=80000.0f;
 						colliders=block.GetComponentsInChildren<BoxCollider>();
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 						foreach(BoxCollider collider in colliders)
 						{
 							collider.material.staticFriction=0.12f;
@@ -70,17 +75,39 @@ namespace MysticFix
 						block.GetComponent<HingeJoint>().breakTorque=60000.0f;
 						block.AddComponent<FrictionController>();
 						break;
+					case "Suspension":
+						block.GetComponent<HingeJoint>().breakForce=35000.0f;
+						block.GetComponent<HingeJoint>().breakTorque=35000.0f;
+						break;	
 					case "Piston":
 						block.GetComponent<HingeJoint>().breakForce=35000.0f;
 						block.GetComponent<HingeJoint>().breakTorque=35000.0f;
 						block.AddComponent<FrictionController>();
 						break;
+					case "SmallWheel":
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						block.GetComponent<HingeJoint>().breakForce=60000.0f;
+						block.GetComponent<HingeJoint>().breakTorque=60000.0f;
+						break;	
 					case "LargeWheel":
 						block.GetComponent<HingeJoint>().breakForce=60000.0f;
 						block.GetComponent<HingeJoint>().breakTorque=60000.0f;
 						block.AddComponent<FrictionController>();
 						break;
+					case "CogMediumUnpowered":
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						block.GetComponent<HingeJoint>().breakForce=60000.0f;
+						block.GetComponent<HingeJoint>().breakTorque=60000.0f;
+						block.AddComponent<FrictionController>();
+						break;	
+					case "CogLargeUnpowered":
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						block.GetComponent<HingeJoint>().breakForce=60000.0f;
+						block.GetComponent<HingeJoint>().breakTorque=60000.0f;
+						block.AddComponent<FrictionController>();
+						break;	
 					case "LargeWheelUnpowered":
+						block.GetComponent<Rigidbody>().maxAngularVelocity=500;
 						block.GetComponent<HingeJoint>().breakForce=55000.0f;
 						block.GetComponent<HingeJoint>().breakTorque=55000.0f;
 						block.AddComponent<FrictionController>();
@@ -97,10 +124,18 @@ namespace MysticFix
 							joint.breakTorque=60000.0f;
 						}
 						break;
-					case "MetalJaw":
+					case "WingPanel":
 						block.GetComponent<ConfigurableJoint>().breakForce=50000.0f;
 						block.GetComponent<ConfigurableJoint>().breakTorque=50000.0f;
 						break;
+					case "Ballast":
+						block.GetComponent<ConfigurableJoint>().breakForce=50000.0f;
+						block.GetComponent<ConfigurableJoint>().breakTorque=50000.0f;
+						break;
+					case "MetalJaw":
+						block.GetComponent<ConfigurableJoint>().breakForce=50000.0f;
+						block.GetComponent<ConfigurableJoint>().breakTorque=50000.0f;
+						break;	
 					case "SteeringBlock":
 						block.GetComponent<ConfigurableJoint>().breakForce=60000.0f;
 						block.GetComponent<ConfigurableJoint>().breakTorque=60000.0f;
@@ -110,6 +145,7 @@ namespace MysticFix
 						block.GetComponent<ConfigurableJoint>().breakTorque=30000.0f;
 						break;	
 					case "SingleWoodenBlock":
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 						configurablejoints=block.GetComponentsInChildren<ConfigurableJoint>();
 						foreach( ConfigurableJoint joint in configurablejoints )
 						{
@@ -117,7 +153,63 @@ namespace MysticFix
 							joint.breakTorque=60000.0f;
 						}
 						break;
+					case "DoubleWoodenBlock":
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						configurablejoints=block.GetComponentsInChildren<ConfigurableJoint>();
+						foreach( ConfigurableJoint joint in configurablejoints )
+						{
+							joint.breakForce=50000.0f;
+							joint.breakTorque=50000.0f;
+						}
+						break;	
+					case "WoodenPole":
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						configurablejoints=block.GetComponentsInChildren<ConfigurableJoint>();
+						foreach( ConfigurableJoint joint in configurablejoints )
+						{
+							joint.breakForce=40000.0f;
+							joint.breakTorque=40000.0f;
+						}
+						break;		
+					case "StartingBlock":
+						block.GetComponent<Rigidbody>().angularDrag=0;
+						block.GetComponent<Rigidbody>().drag=0;
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						break;
+					case "Plow":
+						block.GetComponent<Rigidbody>().angularDrag=0;
+						block.GetComponent<Rigidbody>().drag=0;
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						break;	
+					case "HalfPipe":
+						block.GetComponent<Rigidbody>().angularDrag=0;
+						block.GetComponent<Rigidbody>().drag=0;
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						break;	
+					case "ArmorPlateSmall":
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						break;		
+					case "ArmorPlateLarge":
+						block.GetComponent<Rigidbody>().angularDrag=0;
+						block.GetComponent<Rigidbody>().drag=0;
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						break;		
+					case "ArmorPlateRound":
+						block.GetComponent<Rigidbody>().angularDrag=0;
+						block.GetComponent<Rigidbody>().drag=0;
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						break;	
+					case "Cannon":
+						block.GetComponent<Rigidbody>().angularDrag=0;
+						block.GetComponent<Rigidbody>().drag=0;
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+						break;
 					case "Grabber":
+						block.GetComponent<Rigidbody>().angularDrag=0;
+						block.GetComponent<Rigidbody>().drag=0.01f;
+						block.GetComponent<ConfigurableJoint>().breakForce=13750.0f;
+						block.GetComponent<ConfigurableJoint>().breakTorque=13750.0f;
+						block.GetComponent<Rigidbody>().maxAngularVelocity=50;
 						colliders=block.GetComponentsInChildren<BoxCollider>();
 						foreach(BoxCollider collider in colliders)
 						{
@@ -129,6 +221,7 @@ namespace MysticFix
 					case "WoodenPanel":
 						block.GetComponent<Rigidbody>().angularDrag=0;
 						block.GetComponent<Rigidbody>().drag=0;
+						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 						block.GetComponent<ConfigurableJoint>().breakForce=Mathf.Infinity;
 						block.GetComponent<ConfigurableJoint>().breakTorque= Mathf.Infinity;
 						colliders=block.GetComponentsInChildren<BoxCollider>();
