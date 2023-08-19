@@ -395,6 +395,10 @@ namespace MysticFix
 					if(block.GetComponent<ExplosionStopper>()==null){block.AddComponent<ExplosionStopper>();}
 					if(block.GetComponent<GrabberModifier>()==null){block.AddComponent<GrabberModifier>();}
 				}
+				if(block.name=="SteeringBlock")
+				{
+					if(block.GetComponent<SteeringBlockLimiter>()==null){block.AddComponent<SteeringBlockLimiter>();}
+				}
 			};
 			//Multiverse Cannonball tick damage removal 
 			Modding.Events.OnConnect += delegate()
