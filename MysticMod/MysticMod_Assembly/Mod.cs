@@ -31,6 +31,17 @@ namespace MysticFix
 				"LargeWheelUnpowered"
 			};
 
+			string[] invtoggleblocks={
+				"MetalBlade",
+				"MetalSpike"
+			};
+
+			string[] invremoveblocks={
+				"CogMediumPowered",
+				"CircularSaw",
+				"SpinningBlock"
+			};
+
 			Modding.Events.OnBlockInit += delegate(Block toInit)
             {
 				Component[] configurablejoints;
@@ -130,8 +141,6 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;
 						case "CogMediumPowered":
-							block.GetComponent<HingeJoint>().breakForce=90000.0f;
-							block.GetComponent<HingeJoint>().breakTorque=90000.0f;
 							
 							Console.Log("Modified properties of: "+block.name);
 							break;	
@@ -223,8 +232,6 @@ namespace MysticFix
 							break;
 						case "CircularSaw":
 							BB.Prefab.myDamageType = DamageType.Blunt;
-							block.GetComponent<HingeJoint>().breakForce=90000.0f;
-							block.GetComponent<HingeJoint>().breakTorque=90000.0f;
 							Console.Log("Modified properties of: "+block.name);
 							break;	
 						case "MetalBall":
@@ -330,6 +337,12 @@ namespace MysticFix
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 							Console.Log("Modified properties of: "+block.name);
 							break;
+						case "SpinningBlock":
+							block.GetComponent<Rigidbody>().angularDrag=0;
+							block.GetComponent<Rigidbody>().drag=0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity=5;
+							Console.Log("Modified properties of: "+block.name);
+							break;
 						case "Grabber":
 							block.GetComponent<Rigidbody>().mass=0.7f;
 							block.GetComponent<Rigidbody>().angularDrag=0;
@@ -368,6 +381,14 @@ namespace MysticFix
 				if(frictionblocks.Contains(block.name))
 				{
 					if(block.GetComponent<FrictionController>()==null){block.AddComponent<FrictionController>();}
+				}
+				if(invtoggleblocks.Contains(block.name))
+				{
+					if(block.GetComponent<InvincibilityToggler>()==null){block.AddComponent<InvincibilityToggler>();}
+				}
+				if(invremoveblocks.Contains(block.name))
+				{
+					if(block.GetComponent<InvincibilityRemover>()==null){block.AddComponent<InvincibilityRemover>();}
 				}
 			};
 			//Multiverse Cannonball tick damage removal 
