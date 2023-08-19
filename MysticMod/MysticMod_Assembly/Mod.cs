@@ -106,13 +106,13 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;
 						case "Suspension":
-							block.GetComponent<HingeJoint>().breakForce=35000.0f;
-							block.GetComponent<HingeJoint>().breakTorque=35000.0f;
+							block.GetComponent<ConfigurableJoint>().breakForce=35000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque=35000.0f;
 							Console.Log("Modified properties of: "+block.name);
 							break;	
 						case "Piston":
-							block.GetComponent<HingeJoint>().breakForce=35000.0f;
-							block.GetComponent<HingeJoint>().breakTorque=35000.0f;
+							block.GetComponent<ConfigurableJoint>().breakForce=35000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque=35000.0f;
 							
 							Console.Log("Modified properties of: "+block.name);
 							break;
