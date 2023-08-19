@@ -33,47 +33,53 @@ namespace MysticFix
             if (this.BB == null)
 			{
                 Console.Log("No block behavior, destroying the object");
-				Object.Destroy(this);
+				UnityEngine.Object.Destroy(this);
 			}
             PCMenu = BB.AddMenu("Combine", PCselect, PCmenul, false);
             PCMenu.ValueChanged += (ValueHandler)(value => 
             {
-                switch (value)
+                if (!StatMaster.isClient || StatMaster.isLocalSim)
                 {
-                    case 0:
-                        PC = PhysicMaterialCombine.Average;
-                        break;
-                    case 1:
-                        PC = PhysicMaterialCombine.Multiply;
-                        break;
-                    case 2:
-                        PC = PhysicMaterialCombine.Minimum;
-                        break;
-                    case 3:
-                        PC = PhysicMaterialCombine.Maximum;
-                        break;
+                    switch (value)
+                    {
+                        case 0:
+                            PC = PhysicMaterialCombine.Average;
+                            break;
+                        case 1:
+                            PC = PhysicMaterialCombine.Multiply;
+                            break;
+                        case 2:
+                            PC = PhysicMaterialCombine.Minimum;
+                            break;
+                        case 3:
+                            PC = PhysicMaterialCombine.Maximum;
+                            break;
+                    }
+                    Component[] colliders = colliders=GetComponentsInChildren<BoxCollider>();
+                    foreach(BoxCollider collider in colliders)
+                    {
+                        collider.material.frictionCombine=PC;
+                    }
                 }
+
             });
             
-            MSlider frictionSlider = BB.AddSlider("Friction","Friction",1.0f,0.1f,4.0f);
+            MSlider frictionSlider = BB.AddSlider("Friction","Friction",grip,0.1f,4.0f, "", "x");
             
             frictionSlider.ValueChanged += (float value) => {
-                this.grip = value;
-                };
+                if (!StatMaster.isClient || StatMaster.isLocalSim)
+                {
+                Component[] colliders = colliders=GetComponentsInChildren<BoxCollider>();
+                    foreach(BoxCollider collider in colliders)
+                    {
+                        collider.material.staticFriction=grip;
+                        collider.material.dynamicFriction=grip;
+                    }
+                }
+            };
 
             frictionSlider.DisplayInMapper = true;
             PCMenu.DisplayInMapper = true;
-
-            if (!StatMaster.isClient || StatMaster.isLocalSim)
-            {
-                Component[] colliders = colliders=GetComponentsInChildren<BoxCollider>();
-                foreach(BoxCollider collider in colliders)
-                {
-                    collider.material.staticFriction=value;
-                    collider.material.dynamicFriction=value;
-                    collider.material.frictionCombine=PC;
-                }
-            }
         }
         private void FixedUpdate()
         {
