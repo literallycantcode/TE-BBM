@@ -211,6 +211,11 @@ namespace MysticFix
 							block.GetComponent<ConfigurableJoint>().breakTorque=35000.0f;
 							Console.Log("Modified properties of: "+block.name);
 							break;
+						case "BallJoint":
+							block.GetComponent<ConfigurableJoint>().breakForce=30000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque=30000.0f;
+							Console.Log("Modified properties of: "+block.name);
+							break;	
 						case "Decoupler":
 							block.GetComponent<ConfigurableJoint>().breakForce=30000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque=30000.0f;
