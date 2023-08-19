@@ -247,16 +247,37 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;	
 						case "ArmorPlateSmall":
+							colliders=block.GetComponentsInChildren<BoxCollider>();
+							foreach(BoxCollider collider in colliders)
+							{
+								collider.material.staticFriction=0.1f;
+								collider.material.dynamicFriction=0.1f;
+								collider.material.frictionCombine=PhysicMaterialCombine.Minimum;
+							}
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 							Console.Log("Modified properties of: "+block.name);
 							break;		
 						case "ArmorPlateLarge":
+							colliders=block.GetComponentsInChildren<BoxCollider>();
+							foreach(BoxCollider collider in colliders)
+							{
+								collider.material.staticFriction=0.1f;
+								collider.material.dynamicFriction=0.1f;
+								collider.material.frictionCombine=PhysicMaterialCombine.Minimum;
+							}
 							block.GetComponent<Rigidbody>().angularDrag=0;
 							block.GetComponent<Rigidbody>().drag=0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 							Console.Log("Modified properties of: "+block.name);
 							break;		
 						case "ArmorPlateRound":
+							colliders=block.GetComponentsInChildren<BoxCollider>();
+							foreach(BoxCollider collider in colliders)
+							{
+								collider.material.staticFriction=0.1f;
+								collider.material.dynamicFriction=0.1f;
+								collider.material.frictionCombine=PhysicMaterialCombine.Minimum;
+							}
 							block.GetComponent<Rigidbody>().angularDrag=0;
 							block.GetComponent<Rigidbody>().drag=0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;

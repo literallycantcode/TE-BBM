@@ -14,6 +14,7 @@ namespace MysticFix
         private MSlider GS;
         private MMenu PCMenu;
         private int PCselect = 0;
+        public float grip = 0.7f;
         public PhysicMaterialCombine PC = PhysicMaterialCombine.Average;
 
         internal static List<string> PCmenul = new List<string>()
@@ -29,6 +30,11 @@ namespace MysticFix
         {
             Console.Log("Friction Controller Added to "+gameObject.name);
             BB = GetComponentInParent<BlockBehaviour>();
+            if (this.BB == null)
+			{
+                Console.Log("No block behavior, destroying the object");
+				Object.Destroy(this);
+			}
             PCMenu = BB.AddMenu("Combine", PCselect, PCmenul, false);
             PCMenu.ValueChanged += (ValueHandler)(value => 
             {
@@ -52,17 +58,22 @@ namespace MysticFix
             MSlider frictionSlider = BB.AddSlider("Friction","Friction",1.0f,0.1f,4.0f);
             
             frictionSlider.ValueChanged += (float value) => {
-                Component[] colliders = colliders=GetComponentsInChildren<BoxCollider>();
-						foreach(BoxCollider collider in colliders)
-						{
-							collider.material.staticFriction=value;
-							collider.material.dynamicFriction=value;
-							collider.material.frictionCombine=PC;
-						}
+                this.grip = value;
                 };
 
             frictionSlider.DisplayInMapper = true;
             PCMenu.DisplayInMapper = true;
+
+            if (!StatMaster.isClient || StatMaster.isLocalSim)
+            {
+                Component[] colliders = colliders=GetComponentsInChildren<BoxCollider>();
+                foreach(BoxCollider collider in colliders)
+                {
+                    collider.material.staticFriction=value;
+                    collider.material.dynamicFriction=value;
+                    collider.material.frictionCombine=PC;
+                }
+            }
         }
         private void FixedUpdate()
         {
