@@ -390,6 +390,11 @@ namespace MysticFix
 				{
 					if(block.GetComponent<InvincibilityRemover>()==null){block.AddComponent<InvincibilityRemover>();}
 				}
+				if(block.name=="Grabber")
+				{
+					if(block.GetComponent<ExplosionStopper>()==null){block.AddComponent<ExplosionStopper>();}
+					if(block.GetComponent<GrabberModifier>()==null){block.AddComponent<GrabberModifier>();}
+				}
 			};
 			//Multiverse Cannonball tick damage removal 
 			Modding.Events.OnConnect += delegate()
