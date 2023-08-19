@@ -13,7 +13,7 @@ namespace MysticFix
         private BlockBehaviour BB;
         private bool MakeInvinc = true;
         private MToggle MI;
-        private HingeJoiny HJ;
+        private HingeJoint HJ;
         private bool firstframe = false;
         private int fcounter;
 
