@@ -69,7 +69,7 @@ namespace MysticFix
 							break;
 						case "MetalBlade":
 							BB.Prefab.myDamageType = DamageType.Blunt;
-							block.GetComponent<Rigidbody>().mass=0.6;
+							block.GetComponent<Rigidbody>().mass=0.6f;
 							block.GetComponent<Rigidbody>().angularDrag=0;
 							block.GetComponent<Rigidbody>().drag=0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
@@ -129,7 +129,7 @@ namespace MysticFix
 							
 							Console.Log("Modified properties of: "+block.name);
 							break;
-						case "CogMediumUnpowered":
+						case "CogMediumPowered":
 							block.GetComponent<HingeJoint>().breakForce=90000.0f;
 							block.GetComponent<HingeJoint>().breakTorque=90000.0f;
 							
@@ -201,7 +201,7 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;
 						case "SteeringHinge":
-							block.GetComponent<Rigidbody>().mass=0.4;
+							block.GetComponent<Rigidbody>().mass=0.4f;
 							block.GetComponent<ConfigurableJoint>().breakForce=30000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque=30000.0f;
 							Console.Log("Modified properties of: "+block.name);
@@ -331,7 +331,7 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;
 						case "Grabber":
-							block.GetComponent<Rigidbody>().mass=0.7;
+							block.GetComponent<Rigidbody>().mass=0.7f;
 							block.GetComponent<Rigidbody>().angularDrag=0;
 							block.GetComponent<Rigidbody>().drag=0.01f;
 							block.GetComponent<ConfigurableJoint>().breakForce=13750.0f;
@@ -347,7 +347,7 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;	
 						case "WoodenPanel":
-							block.GetComponent<Rigidbody>().mass=0.5;
+							block.GetComponent<Rigidbody>().mass=0.5f;
 							block.GetComponent<Rigidbody>().angularDrag=0;
 							block.GetComponent<Rigidbody>().drag=0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
