@@ -11,7 +11,7 @@ namespace MysticFix
     public class InvincibilityRemover : MonoBehaviour
     {
         private BlockBehaviour BB;
-        private bool MakeInvinc = true;
+        private bool MakeInvinc = false;
         private MToggle MI;
         private HingeJoint HJ;
         private bool firstframe = false;
@@ -61,7 +61,10 @@ namespace MysticFix
                         fcounter++;
 
                         if (MakeInvinc)
-                            return;
+                        {
+                            HJ.breakForce = Mathf.Infinity;
+                            HJ.breakTorque = Mathf.Infinity;
+                        }
                         else
                         {
                             HJ.breakForce = 90000;
