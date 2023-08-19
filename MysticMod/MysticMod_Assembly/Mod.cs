@@ -90,7 +90,7 @@ namespace MysticFix
 							block.GetComponent<Rigidbody>().drag=0;
 							block.GetComponent<ConfigurableJoint>().breakForce=80000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque=80000.0f;
-							colliders=block.GetComponentsInChildren<BoxCollider>();
+							colliders=block.GetComponentsInChildren<CapsuleCollider>();
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 							foreach(BoxCollider collider in colliders)
 							{
