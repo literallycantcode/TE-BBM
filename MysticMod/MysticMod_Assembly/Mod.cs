@@ -130,6 +130,12 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;
 						case "CogMediumUnpowered":
+							block.GetComponent<HingeJoint>().breakForce=90000.0f;
+							block.GetComponent<HingeJoint>().breakTorque=90000.0f;
+							
+							Console.Log("Modified properties of: "+block.name);
+							break;	
+						case "CogMediumUnpowered":
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 							block.GetComponent<HingeJoint>().breakForce=60000.0f;
 							block.GetComponent<HingeJoint>().breakTorque=60000.0f;
@@ -202,15 +208,21 @@ namespace MysticFix
 							break;
 						case "CircularSaw":
 							BB.Prefab.myDamageType = DamageType.Blunt;
+							block.GetComponent<HingeJoint>().breakForce=90000.0f;
+							block.GetComponent<HingeJoint>().breakTorque=90000.0f;
+							Console.Log("Modified properties of: "+block.name);
 							break;	
 						case "MetalBall":
 							BB.Prefab.myDamageType = DamageType.Blunt;
+							Console.Log("Modified properties of: "+block.name);
 							break;	
 						case "Propeller":
 							BB.Prefab.myDamageType = DamageType.Blunt;
+							Console.Log("Modified properties of: "+block.name);
 							break;	
 						case "SmallPropeller":
 							BB.Prefab.myDamageType = DamageType.Blunt;
+							Console.Log("Modified properties of: "+block.name);
 							break;		
 						case "SingleWoodenBlock":
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
