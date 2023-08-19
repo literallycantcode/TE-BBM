@@ -9,7 +9,7 @@
 	<Name>MysticMod</Name>
 	<Author>Mystic</Author> <!-- FIX: Insert your name here. -->
 	<!-- Major.Minor.Build -->
-	<Version>0.0.2</Version>
+	<Version>0.0.3</Version>
 	
 	<Description>
 	Various tweaks and adjustments to the game/blocks <!-- FIX: Insert a short description here. -->
@@ -17,7 +17,7 @@
 	
 	<!-- Square icon of the mod. Texture defined in the Resources section.
 		 This is displayed in the mod list and, if WorkshopThumbnail is not set, used as thumbnail when uploaded to the Steam workshop. -->
-	<!-- <Icon name="icon" /> -->
+	<Icon name="icon" />
 	
 	<!-- Texture resource used as thumbnail when uploading the mod to the workshop.
 		 If this is not present, the Icon texture is used instead.
@@ -39,7 +39,7 @@
 		 Important: You cannot upload mods to Steam or WeGame while Debug is turned on.
 		 
 		 Note: This value is independent of the Debug values for specific Blocks and Entities.-->
-	<Debug>true</Debug>
+	<Debug>false</Debug>
 	
 	<!-- Whether the mod can be used in MP or only in SP.
 		 SP-only mods are easier to write but obviously more limited in their uses.
@@ -120,7 +120,7 @@
 		 You also need to list resources used in your Blocks and Entities.
 		 Available resource types are Mesh, Texture, AudioClip, and AssetBundle. -->
 	<Resources>
-		<!-- <Mesh name="some-mesh-name" path="some_mesh_file.obj" /> -->
+		<Texture name="icon" path="icon.png" />
 		<!-- <Texture name="some-texture-name" path="some_texture_file.png" /> -->
 	</Resources>
 

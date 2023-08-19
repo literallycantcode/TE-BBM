@@ -37,7 +37,7 @@ namespace MysticFix
 				Component[] colliders;
 				BlockBehaviour BB = toInit.InternalObject;
 				GameObject block = BB.gameObject;
-				Console.Log("Block init :"+block.name);
+				Console.Log("Block init : '"+block.name+"'");
 
 				//tick damage removal "borrowed" from Block Health Removal Tool
 				if(BB.BlockHealth != null) {
@@ -60,6 +60,10 @@ namespace MysticFix
 					switch(block.name)
 					{
 						case "GripPad":
+							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+							Console.Log("Modified properties of: "+block.name);
+							break;
+						case "Log":
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 							Console.Log("Modified properties of: "+block.name);
 							break;
@@ -160,6 +164,16 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;
 						case "WingPanel":
+							block.GetComponent<ConfigurableJoint>().breakForce=50000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque=50000.0f;
+							Console.Log("Modified properties of: "+block.name);
+							break;
+						case "Swivel":
+							block.GetComponent<HingeJoint>().breakForce=30000.0f;
+							block.GetComponent<HingeJoint>().breakTorque=30000.0f;
+							Console.Log("Modified properties of: "+block.name);
+							break;
+						case "Wing":
 							block.GetComponent<ConfigurableJoint>().breakForce=50000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque=50000.0f;
 							Console.Log("Modified properties of: "+block.name);
