@@ -3,10 +3,11 @@ using UnityEngine;
 using Modding;
 using Modding.Blocks;
 using System.Collections.Generic;
+using Console = Modding.ModConsole;
 
 namespace MysticFix
 {
-    public class FrictionController : SimBehaviour
+    public class FrictionController : MonoBehaviour
     {
 
         private BlockBehaviour BB;
@@ -26,6 +27,7 @@ namespace MysticFix
 
         private void Awake()
         {
+            Console.Log("Friction Controller Added to "+gameObject.name);
             BB = GetComponentInParent<BlockBehaviour>();
             PCMenu = BB.AddMenu("Combine", PCselect, PCmenul, false);
             PCMenu.ValueChanged += (ValueHandler)(value => 
@@ -58,6 +60,9 @@ namespace MysticFix
 							collider.material.frictionCombine=PC;
 						}
                 };
+
+            frictionSlider.DisplayInMapper = true;
+            PCMenu.DisplayInMapper = true;
         }
         private void FixedUpdate()
         {

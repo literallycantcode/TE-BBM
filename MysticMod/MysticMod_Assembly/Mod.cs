@@ -16,6 +16,8 @@ namespace MysticFix
 			// Called when the mod is loaded.
 			this.logKey = ModKeys.GetKey("Logging");
 			Console.Log("Hello world");
+			SetupNetworking();
+			Physics.gravity = new Vector3(Physics.gravity.x, -55f, Physics.gravity.z);
 
 			Modding.Events.OnBlockInit += delegate(Block toInit)
             {
@@ -43,6 +45,7 @@ namespace MysticFix
 						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 						break;
 					case "MetalBlade":
+						BB.Prefab.myDamageType = DamageType.Blunt;
 						block.GetComponent<Rigidbody>().angularDrag=0;
 						block.GetComponent<Rigidbody>().drag=0;
 						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
@@ -57,6 +60,7 @@ namespace MysticFix
 						}
 						break;
 					case "Spike":
+						BB.Prefab.myDamageType = DamageType.Blunt;
 						block.GetComponent<Rigidbody>().angularDrag=0;
 						block.GetComponent<Rigidbody>().drag=0;
 						block.GetComponent<ConfigurableJoint>().breakForce=80000.0f;
@@ -73,7 +77,7 @@ namespace MysticFix
 					case "Wheel":
 						block.GetComponent<HingeJoint>().breakForce=60000.0f;
 						block.GetComponent<HingeJoint>().breakTorque=60000.0f;
-						block.AddComponent<FrictionController>();
+						if(block.GetComponent<FrictionController>()==null){block.AddComponent<FrictionController>();}
 						break;
 					case "Suspension":
 						block.GetComponent<HingeJoint>().breakForce=35000.0f;
@@ -82,7 +86,7 @@ namespace MysticFix
 					case "Piston":
 						block.GetComponent<HingeJoint>().breakForce=35000.0f;
 						block.GetComponent<HingeJoint>().breakTorque=35000.0f;
-						block.AddComponent<FrictionController>();
+						if(block.GetComponent<FrictionController>()==null){block.AddComponent<FrictionController>();}
 						break;
 					case "SmallWheel":
 						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
@@ -92,25 +96,25 @@ namespace MysticFix
 					case "LargeWheel":
 						block.GetComponent<HingeJoint>().breakForce=60000.0f;
 						block.GetComponent<HingeJoint>().breakTorque=60000.0f;
-						block.AddComponent<FrictionController>();
+						if(block.GetComponent<FrictionController>()==null){block.AddComponent<FrictionController>();}
 						break;
 					case "CogMediumUnpowered":
 						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 						block.GetComponent<HingeJoint>().breakForce=60000.0f;
 						block.GetComponent<HingeJoint>().breakTorque=60000.0f;
-						block.AddComponent<FrictionController>();
+						if(block.GetComponent<FrictionController>()==null){block.AddComponent<FrictionController>();}
 						break;	
 					case "CogLargeUnpowered":
 						block.GetComponent<Rigidbody>().maxAngularVelocity=100;
 						block.GetComponent<HingeJoint>().breakForce=60000.0f;
 						block.GetComponent<HingeJoint>().breakTorque=60000.0f;
-						block.AddComponent<FrictionController>();
+						if(block.GetComponent<FrictionController>()==null){block.AddComponent<FrictionController>();}
 						break;	
 					case "LargeWheelUnpowered":
 						block.GetComponent<Rigidbody>().maxAngularVelocity=500;
 						block.GetComponent<HingeJoint>().breakForce=55000.0f;
 						block.GetComponent<HingeJoint>().breakTorque=55000.0f;
-						block.AddComponent<FrictionController>();
+						if(block.GetComponent<FrictionController>()==null){block.AddComponent<FrictionController>();}
 						break;
 					case "FlyingBlock":
 						block.GetComponent<ConfigurableJoint>().breakForce=20000.0f;
@@ -234,7 +238,6 @@ namespace MysticFix
 						break;
 				}
 			};
-
 			//Multiverse Cannonball tick damage removal 
 			Modding.Events.OnConnect += delegate()
 			{
@@ -252,6 +255,11 @@ namespace MysticFix
 				}
 			};
 		}
+
+		public void SetupNetworking()
+        	{
+					
+			}
 		
 	}
 }
