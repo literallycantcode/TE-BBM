@@ -21,6 +21,11 @@ namespace MysticFix
         {
             Console.Log("Invincibility Toggler Added to "+gameObject.name);
             BB = GetComponent<BlockBehaviour>();
+            if (this.BB == null)
+			{
+                Console.Log("No block behavior, destroying the object");
+				UnityEngine.Object.Destroy(this);
+			}
             MI = BB.AddToggle("Make Invincible", "MVI", MakeInvinc);
             MI.Toggled += (bool value) => { MakeInvinc = value; };
 

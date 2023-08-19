@@ -19,13 +19,24 @@ namespace MysticFix
 
         private void Awake()
         {
+            Console.Log("Invincibility Remover Added to "+gameObject.name);
             BB = GetComponent<BlockBehaviour>();
+            if (this.BB == null)
+			{
+                Console.Log("No block behavior, destroying the object");
+				UnityEngine.Object.Destroy(this);
+			}
+            if(gameObject.name=="CircularSaw" || gameObject.name=="CogMediumPowered")
+            {
+                MakeInvinc = false;
+            }
+            else
+            { 
+                MI = BB.AddToggle("Make Invincible", "MVI", MakeInvinc);
+                MI.Toggled += (bool value) => { MakeInvinc = value; };
 
-            MI = BB.AddToggle("Make Invincible", "MVI", MakeInvinc);
-            MI.Toggled += (bool value) => { MakeInvinc = value; };
-
-            MI.DisplayInMapper = true;
-
+                MI.DisplayInMapper = true;
+            }
             if (!StatMaster.isClient || StatMaster.isLocalSim)
             {
                 if (!GetComponent<HingeJoint>())
