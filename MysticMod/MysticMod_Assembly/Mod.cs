@@ -363,13 +363,11 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;
 					}
-
-					//apply friction controller
-					if(frictionblocks.Contains(block.name))
-					{
-						if(block.GetComponent<FrictionController>()==null){block.AddComponent<FrictionController>();}
-					}
-					
+				}
+				//apply friction controller
+				if(frictionblocks.Contains(block.name))
+				{
+					if(block.GetComponent<FrictionController>()==null){block.AddComponent<FrictionController>();}
 				}
 			};
 			//Multiverse Cannonball tick damage removal 
