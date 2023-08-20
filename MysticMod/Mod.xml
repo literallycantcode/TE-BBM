@@ -9,7 +9,7 @@
 	<Name>MysticMod</Name>
 	<Author>Mystic</Author> <!-- FIX: Insert your name here. -->
 	<!-- Major.Minor.Build -->
-	<Version>0.1.1</Version>
+	<Version>0.2.0</Version>
 	
 	<Description>
 	Various tweaks and adjustments to the game/blocks <!-- FIX: Insert a short description here. -->
@@ -39,7 +39,7 @@
 		 Important: You cannot upload mods to Steam or WeGame while Debug is turned on.
 		 
 		 Note: This value is independent of the Debug values for specific Blocks and Entities.-->
-	<Debug>true</Debug>
+	<Debug>false</Debug>
 	
 	<!-- Whether the mod can be used in MP or only in SP.
 		 SP-only mods are easier to write but obviously more limited in their uses.

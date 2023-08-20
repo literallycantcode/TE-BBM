@@ -28,7 +28,8 @@ namespace MysticFix
 				"CogLargeUnpowered",
 				"Piston",
 				"Hinge",
-				"LargeWheelUnpowered"
+				"LargeWheelUnpowered",
+				"GripPad"
 			};
 
 			string[] invtoggleblocks={
@@ -43,13 +44,40 @@ namespace MysticFix
 			};
 
 			string[] sfxblocks={
-				"Grabber",
-				"SpinningBlock",
+				"StartingBlock",
 				"MetalBlade",
-				"Plow",
+				"Decoupler",
+				"Hinge",
+				"MetalBall",
 				"Cannon",
+				"ScalingBlock",
+				"SteeringBlock",
+				"Suspension",
+				"Suspension",
+				"Piston",
+				"Swivel",
+				"Spike",
+				"SpinningBlock",
+				"ArmorPlateSmall",
+				"Grabber",
+				"SteeringHinge",
+				"ArmorPlateRound",
+				"BombHolder",
+				"ArmorPlateLarge",
+				"Plow",
+				"Ballast",
+				"HalfPipe",
+				"BallJoint",
+				"Torch",
+				"Drill",
 				"ShrapnelCannon",
-				"WaterCannon"
+				"WaterCannon",
+				"Vacuum",
+				"Altimeter",
+				"Anglometer",
+				"LogicGate",
+				"Sensor",
+				"Speedometer"
 			};
 
 			Modding.Events.OnBlockInit += delegate(Block toInit)
@@ -403,6 +431,8 @@ namespace MysticFix
 				if(sfxblocks.Contains(block.name))
 				{
 					//if(block.GetComponent<ImpactEffects>()==null){block.AddComponent<ImpactEffects>();}
+					if(block.GetComponent<ImpactSounds>()==null){block.AddComponent<ImpactSounds>();}
+					if(block.GetComponent<ImpactSparks>()==null){block.AddComponent<ImpactSparks>();}
 				}
 				if(block.name=="Grabber")
 				{
@@ -443,6 +473,7 @@ namespace MysticFix
 				ModNetworking.CallbacksWrapper callbacksWrapper = ModNetworking.Callbacks;
 				MessageType messageType = Messages.col;
 				callbacksWrapper[messageType] += new Action<Message>(ImpactEffects.ProcessSmallHit);
+
 				Messages.hugehit = ModNetworking.CreateMessageType(new DataType[]
 				{
 					DataType.Vector3,
@@ -452,6 +483,37 @@ namespace MysticFix
 				callbacksWrapper = ModNetworking.Callbacks;
 				messageType = Messages.hugehit;
 				callbacksWrapper[messageType] += new Action<Message>(ImpactEffects.ProcessHugeHit);
+
+				Messages.playbigsound = ModNetworking.CreateMessageType(DataType.Block);
+				callbacksWrapper = ModNetworking.Callbacks;
+				messageType = Messages.playbigsound;
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSounds.ProcessHugeHit);
+
+				Messages.playsmallsound = ModNetworking.CreateMessageType(DataType.Block);
+				callbacksWrapper = ModNetworking.Callbacks;
+				messageType = Messages.playsmallsound;
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSounds.ProcessSmallHit);
+
+				Messages.emitsmallsparks = ModNetworking.CreateMessageType(new DataType[]
+				{
+					DataType.Vector3,
+					DataType.Vector3,
+					DataType.Block
+				});
+				callbacksWrapper = ModNetworking.Callbacks;
+				messageType = Messages.emitsmallsparks;
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSparks.ProcessSmallHit);
+
+				Messages.emitbigsparks = ModNetworking.CreateMessageType(new DataType[]
+				{
+					DataType.Vector3,
+					DataType.Vector3,
+					DataType.Block
+				});
+				callbacksWrapper = ModNetworking.Callbacks;
+				messageType = Messages.emitbigsparks;
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSparks.ProcessHugeHit);
+
 				Debug.Log("Setup Networking OK");
 			}
 		
