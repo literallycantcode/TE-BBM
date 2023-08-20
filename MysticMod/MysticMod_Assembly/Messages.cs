@@ -4,6 +4,8 @@ namespace MysticFix
 {
     public static class Messages
     {
-        public static MessageType UI;
+        public static MessageType col;
+
+		public static MessageType hugehit;
     }
 }

@@ -42,6 +42,16 @@ namespace MysticFix
 				"SpinningBlock"
 			};
 
+			string[] sfxblocks={
+				"Grabber",
+				"SpinningBlock",
+				"MetalBlade",
+				"Plow",
+				"Cannon",
+				"ShrapnelCannon",
+				"WaterCannon"
+			};
+
 			Modding.Events.OnBlockInit += delegate(Block toInit)
             {
 				Component[] configurablejoints;
@@ -390,6 +400,10 @@ namespace MysticFix
 				{
 					if(block.GetComponent<InvincibilityRemover>()==null){block.AddComponent<InvincibilityRemover>();}
 				}
+				if(sfxblocks.Contains(block.name))
+				{
+					//if(block.GetComponent<ImpactEffects>()==null){block.AddComponent<ImpactEffects>();}
+				}
 				if(block.name=="Grabber")
 				{
 					if(block.GetComponent<ExplosionStopper>()==null){block.AddComponent<ExplosionStopper>();}
@@ -420,7 +434,25 @@ namespace MysticFix
 
 		public void SetupNetworking()
         	{
-					
+				Messages.col = ModNetworking.CreateMessageType(new DataType[]
+				{
+					DataType.Vector3,
+					DataType.Vector3,
+					DataType.Block
+				});
+				ModNetworking.CallbacksWrapper callbacksWrapper = ModNetworking.Callbacks;
+				MessageType messageType = Messages.col;
+				callbacksWrapper[messageType] += new Action<Message>(ImpactEffects.ProcessSmallHit);
+				Messages.hugehit = ModNetworking.CreateMessageType(new DataType[]
+				{
+					DataType.Vector3,
+					DataType.Vector3,
+					DataType.Block
+				});
+				callbacksWrapper = ModNetworking.Callbacks;
+				messageType = Messages.hugehit;
+				callbacksWrapper[messageType] += new Action<Message>(ImpactEffects.ProcessHugeHit);
+				Debug.Log("Setup Networking OK");
 			}
 		
 	}
