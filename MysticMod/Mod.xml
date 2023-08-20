@@ -9,7 +9,7 @@
 	<Name>MysticMod</Name>
 	<Author>Mystic</Author> <!-- FIX: Insert your name here. -->
 	<!-- Major.Minor.Build -->
-	<Version>0.1.0</Version>
+	<Version>0.1.1</Version>
 	
 	<Description>
 	Various tweaks and adjustments to the game/blocks <!-- FIX: Insert a short description here. -->
@@ -121,6 +121,25 @@
 		 Available resource types are Mesh, Texture, AudioClip, and AssetBundle. -->
 	<Resources>
 		<Texture name="icon" path="icon.png" />
+		<Texture name="sparkglow" path="sparkglow.png" />
+		
+		<AudioClip name="hh0" path="impactSFX/hh0.wav" />
+		<AudioClip name="hh1" path="impactSFX/hh1.wav" />
+		<AudioClip name="hh2" path="impactSFX/hh2.wav" />
+		<AudioClip name="hh3" path="impactSFX/hh3.wav" />
+		<AudioClip name="hh4" path="impactSFX/hh4.wav" />
+		<AudioClip name="hh5" path="impactSFX/hh5.wav" />
+		<AudioClip name="hh6" path="impactSFX/hh6.wav" />
+		<AudioClip name="hh7" path="impactSFX/hh7.wav" />
+		<AudioClip name="hh8" path="impactSFX/hh8.wav" />
+		<AudioClip name="hh9" path="impactSFX/hh9.wav" />
+		<AudioClip name="sh1" path="impactSFX/sh1.wav" />
+		<AudioClip name="sh2" path="impactSFX/sh2.wav" />
+		<AudioClip name="sh3" path="impactSFX/sh3.wav" />
+		<AudioClip name="sh4" path="impactSFX/sh4.wav" />
+		<AudioClip name="sh5" path="impactSFX/sh5.wav" />
+		<AudioClip name="sh6" path="impactSFX/sh6.wav" />
+		<AudioClip name="sh7" path="impactSFX/sh7.wav" />
 		<!-- <Texture name="some-texture-name" path="some_texture_file.png" /> -->
 	</Resources>
 

@@ -36,7 +36,7 @@ namespace MysticFix
                         JoinOnTriggerBlock componentInChildren = base.gameObject.GetComponentInChildren<JoinOnTriggerBlock>();
                         if (componentInChildren != null && componentInChildren.isJoined)
                         {
-                            componentInChildren.currentJoint.projectionMode = 1;
+                            componentInChildren.currentJoint.projectionMode = (UnityEngine.JointProjectionMode)1;
                             componentInChildren.currentJoint.projectionDistance = 1.25f;
                             componentInChildren.currentJoint.projectionAngle = 100f;
                         }

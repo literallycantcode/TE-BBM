@@ -16,6 +16,8 @@ namespace MysticFix
         private MMenu GrabberMenu;
         private int GrabberSelector = 0;
         public float force = 13750.0f;
+        private ConfigurableJoint[] CJ;
+        public int selectedmode;
 
         internal static List<string> grabberModes = new List<string>()
         {
@@ -34,9 +36,10 @@ namespace MysticFix
                 Console.Log("No block behavior, destroying the object");
 				UnityEngine.Object.Destroy(this);
 			}
-            PCMenu = BB.AddMenu("Mode", GrabberSelector, GrabberMenu, false);
-            PCMenu.ValueChanged += (ValueHandler)(value => 
+            GrabberMenu = BB.AddMenu("Mode", GrabberSelector, grabberModes, false);
+            GrabberMenu.ValueChanged += (ValueHandler)(value => 
             {
+                selectedmode=value;
                 switch (value)
                 {
                     case 0:
@@ -61,6 +64,8 @@ namespace MysticFix
             {
                 if (BB.SimPhysics)
                 {
+                    if (selectedmode == 0)
+                        return;
                     if (!firstframe)
                     {
                         fcounter++;
