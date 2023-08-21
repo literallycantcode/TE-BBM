@@ -73,7 +73,7 @@ namespace MysticFix
                     bool flag3 = sqrMagnitude > 300000f;
 					if (!flag3)
 					{
-                        bool flag4 = sqrMagnitude > 10000f;
+                        bool flag4 = sqrMagnitude < 10000f;
                         if (!flag4)
                         {
                             if (collisionInfo.impulse.sqrMagnitude <= 90000f)
