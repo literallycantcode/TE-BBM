@@ -93,43 +93,46 @@ namespace MysticFix
             if(!flag)
             {
                 GameObject gameObject = collisionInfo.gameObject;
-                float sqrMagnitude = collisionInfo.relativeVelocity.sqrMagnitude;
-                bool flag2 = gameObject.layer == this.floorLayer;
-				if (!flag2)
-				{
-                    bool flag3 = sqrMagnitude > 300000f;
-					if (!flag3)
-					{
-                        bool flag4 = sqrMagnitude < 10000f;
-                        if (!flag4)
+                if(gameObject.tag!="LevelObject")
+                {
+                    float sqrMagnitude = collisionInfo.relativeVelocity.sqrMagnitude;
+                    bool flag2 = gameObject.layer == this.floorLayer;
+                    if (!flag2)
+                    {
+                        bool flag3 = sqrMagnitude > 300000f;
+                        if (!flag3)
                         {
-                            if (collisionInfo.impulse.sqrMagnitude <= 90000f)
+                            bool flag4 = sqrMagnitude < 10000f;
+                            if (!flag4)
                             {
-                                this.Angle = gameObject.transform.eulerAngles;
-								this.contact = collisionInfo.contacts[0];
-								this.place = this.contact.point;
-                                this.EmitSparks(this.place, this.Angle, true);
-                                if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                if (collisionInfo.impulse.sqrMagnitude <= 90000f)
                                 {
-                                    ModNetworking.SendToAll(Messages.emitbigsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
-                                }
-                            }
-                            else
-                            {
-								if (this.flip == this.colskip)
-								{
-									this.flip = 0;
-								}
-								else
-								{
-									this.flip++;
                                     this.Angle = gameObject.transform.eulerAngles;
-									this.contact = collisionInfo.contacts[0];
-									this.place = this.contact.point;
-                                    this.EmitSparks(this.place, this.Angle, false);
+                                    this.contact = collisionInfo.contacts[0];
+                                    this.place = this.contact.point;
+                                    this.EmitSparks(this.place, this.Angle, true);
                                     if (!StatMaster.isClient || StatMaster.isLocalSim)
                                     {
-                                        ModNetworking.SendToAll(Messages.emitsmallsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
+                                        ModNetworking.SendToAll(Messages.emitbigsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
+                                    }
+                                }
+                                else
+                                {
+                                    if (this.flip == this.colskip)
+                                    {
+                                        this.flip = 0;
+                                    }
+                                    else
+                                    {
+                                        this.flip++;
+                                        this.Angle = gameObject.transform.eulerAngles;
+                                        this.contact = collisionInfo.contacts[0];
+                                        this.place = this.contact.point;
+                                        this.EmitSparks(this.place, this.Angle, false);
+                                        if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                        {
+                                            ModNetworking.SendToAll(Messages.emitsmallsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
+                                        }
                                     }
                                 }
                             }

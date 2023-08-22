@@ -28,6 +28,7 @@ namespace MysticFix
 				"CogLargeUnpowered",
 				"Piston",
 				"Hinge",
+				"WheelUnpowered",
 				"LargeWheelUnpowered",
 				"GripPad"
 			};
@@ -36,6 +37,14 @@ namespace MysticFix
 				"MetalBlade",
 				"MetalSpike"
 			};
+
+			string[] roundwheelblocks={
+				"Wheel",
+				"LargeWheel",
+				"WheelUnpowered",
+				"LargeWheelUnpowered"
+			};
+
 
 			string[] invremoveblocks={
 				"CogMediumPowered",
@@ -191,8 +200,8 @@ namespace MysticFix
 							break;	
 						case "CogLargeUnpowered":
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
-							block.GetComponent<HingeJoint>().breakForce=60000.0f;
-							block.GetComponent<HingeJoint>().breakTorque=60000.0f;
+							block.GetComponent<ConfigurableJoint>().breakForce=60000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque=60000.0f;
 							
 							Console.Log("Modified properties of: "+block.name);
 							break;	
@@ -428,6 +437,10 @@ namespace MysticFix
 				{
 					if(block.GetComponent<InvincibilityRemover>()==null){block.AddComponent<InvincibilityRemover>();}
 				}
+				if(roundwheelblocks.Contains(block.name))
+				{
+					if(block.GetComponent<RoundWheels>()==null){block.AddComponent<RoundWheels>();}
+				}
 				if(sfxblocks.Contains(block.name))
 				{
 					//if(block.GetComponent<ImpactEffects>()==null){block.AddComponent<ImpactEffects>();}
@@ -443,6 +456,7 @@ namespace MysticFix
 				{
 					if(block.GetComponent<SteeringBlockLimiter>()==null){block.AddComponent<SteeringBlockLimiter>();}
 				}
+				StatMaster.Rules.DisableFire = true;
 			};
 			//Multiverse Cannonball tick damage removal 
 			Modding.Events.OnConnect += delegate()

@@ -39,7 +39,7 @@ namespace MysticFix
 				this.Hitsound.spatialBlend = 1f;
 				this.Hitsound.maxDistance = 400f;
 				this.Hitsound.rolloffMode = AudioRolloffMode.Linear;
-				this.Hitsound.volume = 0.5f;
+				this.Hitsound.volume = 0.33f;
 				this.Hitsound.playOnAwake = false;
 				this.Hitsound.loop = false;
 				this.SmallHitsound = this.BB.gameObject.AddComponent<AudioSource>();
@@ -59,37 +59,46 @@ namespace MysticFix
                 Console.Log("Audio set up");
             }
         }
+
+        public void FixedUpdate()
+        {
+
+        }
         
         public void OnCollisionEnter(Collision collisionInfo)
 		{
             bool flag = !this.BB.isSimulating || !this.BB.SimPhysics || collisionInfo == null || collisionInfo.rigidbody == null;
             if(!flag)
             {
+
                 GameObject gameObject = collisionInfo.gameObject;
-                float sqrMagnitude = collisionInfo.relativeVelocity.sqrMagnitude;
-                bool flag2 = gameObject.layer == this.floorLayer;
-				if (!flag2)
-				{
-                    bool flag3 = sqrMagnitude > 300000f;
-					if (!flag3)
-					{
-                        bool flag4 = sqrMagnitude < 10000f;
-                        if (!flag4)
+                if(gameObject.tag!="LevelObject")
+                {
+                    float sqrMagnitude = collisionInfo.relativeVelocity.sqrMagnitude;
+                    bool flag2 = gameObject.layer == this.floorLayer;
+                    if (!flag2)
+                    {
+                        bool flag3 = sqrMagnitude > 300000f;
+                        if (!flag3)
                         {
-                            if (collisionInfo.impulse.sqrMagnitude <= 90000f)
+                            bool flag4 = sqrMagnitude < 10000f;
+                            if (!flag4)
                             {
-                                playImpactSound(true);
-                                if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                if (collisionInfo.impulse.sqrMagnitude <= 90000f)
                                 {
-                                    ModNetworking.SendToAll(Messages.playbigsound.CreateMessage(this.BB));
+                                    playImpactSound(true);
+                                    if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                    {
+                                        ModNetworking.SendToAll(Messages.playbigsound.CreateMessage(this.BB));
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                playImpactSound(false);
-                                if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                else
                                 {
-                                    ModNetworking.SendToAll(Messages.playsmallsound.CreateMessage(this.BB));
+                                    playImpactSound(false);
+                                    if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                    {
+                                        ModNetworking.SendToAll(Messages.playsmallsound.CreateMessage(this.BB));
+                                    }
                                 }
                             }
                         }
