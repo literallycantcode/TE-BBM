@@ -9,7 +9,7 @@
 	<Name>MysticMod</Name>
 	<Author>Mystic</Author> <!-- FIX: Insert your name here. -->
 	<!-- Major.Minor.Build -->
-	<Version>0.2.2</Version>
+	<Version>0.3.6</Version>
 	
 	<Description>
 	Various tweaks and adjustments to the game/blocks <!-- FIX: Insert a short description here. -->
@@ -135,6 +135,7 @@
 		<AudioClip name="air10" path="Sounds/air10.wav" />
 		<AudioClip name="air11" path="Sounds/air11.wav" />
 		<AudioClip name="air12" path="Sounds/air12.wav" />
+		<AudioClip name="air13" path="Sounds/air13.wav" />
 		
 		<AudioClip name="air_Broken" path="Sounds/air_Broken.wav" />
 		

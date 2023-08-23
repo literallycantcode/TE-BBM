@@ -33,6 +33,12 @@ namespace MysticFix
 				"GripPad"
 			};
 
+			string[] dragfixblocks=
+			{
+				"Wing",
+				"WingPanel",
+			};
+
 			string[] invtoggleblocks={
 				"MetalBlade",
 				"MetalSpike"
@@ -437,9 +443,13 @@ namespace MysticFix
 				{
 					if(block.GetComponent<InvincibilityRemover>()==null){block.AddComponent<InvincibilityRemover>();}
 				}
-				if(roundwheelblocks.Contains(block.name))
+				if(dragfixblocks.Contains(block.name))
 				{
-					if(block.GetComponent<RoundWheels>()==null){block.AddComponent<RoundWheels>();}
+					if(block.GetComponent<DragFix>()==null){block.AddComponent<DragFix>();}
+				}
+				if(block.name=="Suspension")
+				{
+					if(block.GetComponent<Pneumatics>()==null){block.AddComponent<Pneumatics>();}
 				}
 				if(sfxblocks.Contains(block.name))
 				{
@@ -455,6 +465,10 @@ namespace MysticFix
 				if(block.name=="SteeringBlock")
 				{
 					if(block.GetComponent<SteeringBlockLimiter>()==null){block.AddComponent<SteeringBlockLimiter>();}
+				}
+				if(block.name=="Suspension")
+				{
+					if(block.GetComponent<Pneumatics>()==null){block.AddComponent<Pneumatics>();}
 				}
 				StatMaster.Rules.DisableFire = true;
 			};
@@ -478,6 +492,7 @@ namespace MysticFix
 
 		public void SetupNetworking()
         	{
+				Pneumatics.SetupNetworking();
 				Messages.col = ModNetworking.CreateMessageType(new DataType[]
 				{
 					DataType.Vector3,
