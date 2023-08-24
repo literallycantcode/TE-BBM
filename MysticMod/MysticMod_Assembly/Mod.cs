@@ -13,14 +13,12 @@ namespace MysticFix
 		ModKey logKey; 
 
 		public override void OnLoad()
-		{
+		{	
+			Console.Log("Hello world");
 			// Called when the mod is loaded.
 			this.logKey = ModKeys.GetKey("Logging");
-			Console.Log("Hello world");
+			
 			SetupNetworking();
-			OptionsMaster.defaultSmoothness = 0f;
-			Physics.gravity = new Vector3(Physics.gravity.x, -55f, Physics.gravity.z);
-			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 
 			string[] frictionblocks={
 				"Wheel",
@@ -56,6 +54,12 @@ namespace MysticFix
 				"CogMediumPowered",
 				"CircularSaw",
 				"SpinningBlock"
+			};
+
+			string[] smokefixblocks={
+				"Log",
+				"SingleWoodenBlock",
+				"DoubleWoodenBlock"
 			};
 
 			string[] sfxblocks={
@@ -94,7 +98,6 @@ namespace MysticFix
 				"Sensor",
 				"Speedometer"
 			};
-
 			Modding.Events.OnBlockInit += delegate(Block toInit)
             {
 				Component[] configurablejoints;
@@ -447,9 +450,21 @@ namespace MysticFix
 				{
 					if(block.GetComponent<DragFix>()==null){block.AddComponent<DragFix>();}
 				}
+				if(roundwheelblocks.Contains(block.name))
+				{
+					if(block.GetComponent<RoundWheels>()==null){block.AddComponent<RoundWheels>();}
+				}
+				if(smokefixblocks.Contains(block.name))
+				{
+					if(block.GetComponent<SmokeFix>()==null){block.AddComponent<SmokeFix>();}
+				}	
 				if(block.name=="Suspension")
 				{
 					if(block.GetComponent<Pneumatics>()==null){block.AddComponent<Pneumatics>();}
+				}
+				if(block.name=="Spring" || block.name=="Winch")
+				{
+					if(block.GetComponent<WinchFix>()==null){block.AddComponent<WinchFix>();}
 				}
 				if(sfxblocks.Contains(block.name))
 				{
@@ -462,15 +477,6 @@ namespace MysticFix
 					if(block.GetComponent<ExplosionStopper>()==null){block.AddComponent<ExplosionStopper>();}
 					if(block.GetComponent<GrabberModifier>()==null){block.AddComponent<GrabberModifier>();}
 				}
-				if(block.name=="SteeringBlock")
-				{
-					if(block.GetComponent<SteeringBlockLimiter>()==null){block.AddComponent<SteeringBlockLimiter>();}
-				}
-				if(block.name=="Suspension")
-				{
-					if(block.GetComponent<Pneumatics>()==null){block.AddComponent<Pneumatics>();}
-				}
-				StatMaster.Rules.DisableFire = true;
 			};
 			//Multiverse Cannonball tick damage removal 
 			Modding.Events.OnConnect += delegate()
@@ -488,11 +494,18 @@ namespace MysticFix
 					ModConsole.Log("Could not find GameObject PROJECTILES when logging into a multiverse session.");
 				}
 			};
+			//PrefabModder.ModPrefab();
+			OptionsMaster.defaultSmoothness = 0f;
+			Physics.gravity = new Vector3(Physics.gravity.x, -55f, Physics.gravity.z);
+			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
+			StatMaster.Rules.DisableFire = true;
 		}
 
 		public void SetupNetworking()
         	{
 				Pneumatics.SetupNetworking();
+				SmokeFix.SetupNetworking();
+				WinchFix.SetupNetworking();
 				Messages.col = ModNetworking.CreateMessageType(new DataType[]
 				{
 					DataType.Vector3,

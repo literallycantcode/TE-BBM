@@ -9,7 +9,7 @@
 	<Name>MysticMod</Name>
 	<Author>Mystic</Author> <!-- FIX: Insert your name here. -->
 	<!-- Major.Minor.Build -->
-	<Version>0.3.6</Version>
+	<Version>0.4.1</Version>
 	
 	<Description>
 	Various tweaks and adjustments to the game/blocks <!-- FIX: Insert a short description here. -->
@@ -56,7 +56,7 @@
 		 less user-friendly, whenever the mod is disabled the game needs to be restarted.-->
 	<LoadInTitleScreen />
 	
-	<LoadOrder>2</LoadOrder>
+	<LoadOrder>-10</LoadOrder>
 	<!-- Note on IDs -->
 	<!-- Many elements of your mod need to have an ID assigned that will identify them.
 		 This includes blocks, entities, triggers and events.
@@ -160,6 +160,11 @@
 		<AudioClip name="sh5" path="impactSFX/sh5.wav" />
 		<AudioClip name="sh6" path="impactSFX/sh6.wav" />
 		<AudioClip name="sh7" path="impactSFX/sh7.wav" />
+
+		<Texture name="Smoke1" path="Particles/Smoke1.png" />
+		<Texture name="Smoke2" path="Particles/Smoke2.png" />
+		<Texture name="Smoke3" path="Particles/Smoke3.png" />
+		<Texture name="Smoke4" path="Particles/Smoke4.png" />
 		<!-- <Texture name="some-texture-name" path="some_texture_file.png" /> -->
 	</Resources>
 
