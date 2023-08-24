@@ -49,6 +49,12 @@ namespace MysticFix
 				"LargeWheelUnpowered"
 			};
 
+			string[] spinuptimeblocks={
+				"Wheel",
+				"LargeWheel",
+				"CogMediumPowered"
+			};
+
 
 			string[] invremoveblocks={
 				"CogMediumPowered",
@@ -458,11 +464,15 @@ namespace MysticFix
 				{
 					if(block.GetComponent<SmokeFix>()==null){block.AddComponent<SmokeFix>();}
 				}	
+				if(spinuptimeblocks.Contains(block.name))
+				{
+					if(block.GetComponent<SpinupTime>()==null){block.AddComponent<SpinupTime>();}
+				}	
 				if(block.name=="Suspension")
 				{
 					if(block.GetComponent<Pneumatics>()==null){block.AddComponent<Pneumatics>();}
 				}
-				if(block.name=="Spring" || block.name=="Winch")
+				if(block.name=="Spring" || block.name=="RopeWinch")
 				{
 					if(block.GetComponent<WinchFix>()==null){block.AddComponent<WinchFix>();}
 				}
