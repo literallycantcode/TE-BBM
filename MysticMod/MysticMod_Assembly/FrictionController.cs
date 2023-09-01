@@ -12,10 +12,12 @@ namespace MysticFix
 
         private Collider[] colliders;
         private BlockBehaviour BB;
+        private int fcounter;
         private MSlider GS;
         private MMenu PCMenu;
         private int PCselect = 0;
         public float grip = 0.7f;
+        private bool firstframe = false;
         public PhysicMaterialCombine PC = PhysicMaterialCombine.Average;
 
         internal static List<string> PCmenul = new List<string>()
@@ -77,7 +79,25 @@ namespace MysticFix
         }
         private void Update()
         {
-
+            if (!StatMaster.isClient || StatMaster.isLocalSim)
+            {
+                if (BB.isSimulating)
+                {
+                    if (!firstframe)
+                    {
+                        //modifiying collider at runtime too because roundwheel colliders are generated at runtime
+                        colliders = GetComponentsInChildren<Collider>();
+                        foreach (Collider collider in colliders)
+                        {
+                            collider.material.dynamicFriction = grip;
+                            collider.material.staticFriction = grip;
+                            collider.material.frictionCombine = PC;
+                        }
+                        if (fcounter == 10)
+                            firstframe = true;
+                    }
+                }
+            }
         }
     }
 }
