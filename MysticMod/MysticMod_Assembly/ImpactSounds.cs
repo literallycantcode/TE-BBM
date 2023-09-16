@@ -13,6 +13,7 @@ namespace MysticFix
     {
         public bool set = false;
         public int floorLayer = 29;
+        public int cooldown = 0;
         public AudioSource Hitsound;
         public AudioSource SmallHitsound;
         public List<AudioClip> HH = new List<AudioClip>();
@@ -39,7 +40,7 @@ namespace MysticFix
 				this.Hitsound.spatialBlend = 1f;
 				this.Hitsound.maxDistance = 400f;
 				this.Hitsound.rolloffMode = AudioRolloffMode.Linear;
-				this.Hitsound.volume = 0.33f;
+				this.Hitsound.volume = 0.3f;
 				this.Hitsound.playOnAwake = false;
 				this.Hitsound.loop = false;
 				this.SmallHitsound = this.BB.gameObject.AddComponent<AudioSource>();
@@ -53,7 +54,7 @@ namespace MysticFix
 				this.SmallHitsound.spatialBlend = 1f;
 				this.SmallHitsound.maxDistance = 200f;
 				this.SmallHitsound.rolloffMode = AudioRolloffMode.Linear;
-				this.SmallHitsound.volume = 0.07f;
+				this.SmallHitsound.volume = 0.05f;
 				this.SmallHitsound.playOnAwake = false;
 				this.SmallHitsound.loop = false;
                 Console.Log("Audio set up");
@@ -84,20 +85,34 @@ namespace MysticFix
                             bool flag4 = sqrMagnitude < 10000f;
                             if (!flag4)
                             {
-                                if (collisionInfo.impulse.sqrMagnitude <= 90000f)
+                                if (cooldown==0)
                                 {
-                                    playImpactSound(true);
-                                    if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                    if (collisionInfo.impulse.sqrMagnitude <= 90000f)
                                     {
-                                        ModNetworking.SendToAll(Messages.playbigsound.CreateMessage(this.BB));
+                                        playImpactSound(true);
+                                        if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                        {
+                                            ModNetworking.SendToAll(Messages.playbigsound.CreateMessage(this.BB));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        playImpactSound(false);
+                                        if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                        {
+                                            ModNetworking.SendToAll(Messages.playsmallsound.CreateMessage(this.BB));
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                    playImpactSound(false);
-                                    if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                    if(cooldown<10)
                                     {
-                                        ModNetworking.SendToAll(Messages.playsmallsound.CreateMessage(this.BB));
+                                        cooldown++;
+                                    }
+                                    else
+                                    {
+                                        cooldown=0;
                                     }
                                 }
                             }

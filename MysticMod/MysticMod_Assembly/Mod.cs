@@ -39,7 +39,7 @@ namespace MysticFix
 
 			string[] invtoggleblocks={
 				"MetalBlade",
-				"MetalSpike"
+				"Spike"
 			};
 
 			string[] roundwheelblocks={
@@ -72,7 +72,6 @@ namespace MysticFix
 				"StartingBlock",
 				"MetalBlade",
 				"Decoupler",
-				"Hinge",
 				"MetalBall",
 				"Cannon",
 				"ScalingBlock",
@@ -86,7 +85,6 @@ namespace MysticFix
 				"ArmorPlateSmall",
 				"Grabber",
 				"SteeringHinge",
-				"ArmorPlateRound",
 				"BombHolder",
 				"ArmorPlateLarge",
 				"Plow",
@@ -197,8 +195,8 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;	
 						case "LargeWheel":
-							block.GetComponent<HingeJoint>().breakForce=60000.0f;
-							block.GetComponent<HingeJoint>().breakTorque=60000.0f;
+							block.GetComponent<HingeJoint>().breakForce=70000.0f;
+							block.GetComponent<HingeJoint>().breakTorque=70000.0f;
 							
 							Console.Log("Modified properties of: "+block.name);
 							break;
@@ -278,8 +276,8 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;
 						case "Hinge":
-							block.GetComponent<ConfigurableJoint>().breakForce=35000.0f;
-							block.GetComponent<ConfigurableJoint>().breakTorque=35000.0f;
+							block.GetComponent<ConfigurableJoint>().breakForce=45000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque=45000.0f;
 							Console.Log("Modified properties of: "+block.name);
 							break;
 						case "BallJoint":
@@ -313,8 +311,8 @@ namespace MysticFix
 							configurablejoints=block.GetComponentsInChildren<ConfigurableJoint>();
 							foreach( ConfigurableJoint joint in configurablejoints )
 							{
-								joint.breakForce=60000.0f;
-								joint.breakTorque=60000.0f;
+								joint.breakForce=55000.0f;
+								joint.breakTorque=55000.0f;
 							}
 							Console.Log("Modified properties of: "+block.name);
 							break;
@@ -394,6 +392,12 @@ namespace MysticFix
 							Console.Log("Modified properties of: "+block.name);
 							break;	
 						case "Cannon":
+							block.GetComponent<Rigidbody>().angularDrag=0;
+							block.GetComponent<Rigidbody>().drag=0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
+							Console.Log("Modified properties of: "+block.name);
+							break;
+						case "WaterCannon":
 							block.GetComponent<Rigidbody>().angularDrag=0;
 							block.GetComponent<Rigidbody>().drag=0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity=100;
@@ -481,6 +485,14 @@ namespace MysticFix
 					//if(block.GetComponent<ImpactEffects>()==null){block.AddComponent<ImpactEffects>();}
 					if(block.GetComponent<ImpactSounds>()==null){block.AddComponent<ImpactSounds>();}
 					if(block.GetComponent<ImpactSparks>()==null){block.AddComponent<ImpactSparks>();}
+				}
+				if(block.name=="Sensor")
+				{
+					if(block.GetComponent<SensorDisjoint>()==null){block.AddComponent<SensorDisjoint>();}
+				}
+				if(block.name=="Axle")
+				{
+					if(block.GetComponent<AxleFix>()==null){block.AddComponent<AxleFix>();}
 				}
 				if(block.name=="Grabber")
 				{

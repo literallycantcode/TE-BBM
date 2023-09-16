@@ -17,7 +17,8 @@ namespace MysticFix
         public ModTexture Sparktex = ModResource.GetTexture("sparkglow");
         public ParticleSystem Sparks;
         public static ParticleSystem.EmitParams emitParams = default(ParticleSystem.EmitParams);
-        public int hugehitcount = 40;
+        public int hugehitcount = 35;
+        public int cooldown = 0;
         public int colskip = 1;
         public int flip = 0;
         public Vector3 Angle;
@@ -105,34 +106,49 @@ namespace MysticFix
                             bool flag4 = sqrMagnitude < 10000f;
                             if (!flag4)
                             {
-                                if (collisionInfo.impulse.sqrMagnitude <= 90000f)
+                                if (cooldown==0)
                                 {
-                                    this.Angle = gameObject.transform.eulerAngles;
-                                    this.contact = collisionInfo.contacts[0];
-                                    this.place = this.contact.point;
-                                    this.EmitSparks(this.place, this.Angle, true);
-                                    if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                    if (collisionInfo.impulse.sqrMagnitude <= 90000f)
                                     {
-                                        ModNetworking.SendToAll(Messages.emitbigsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
-                                    }
-                                }
-                                else
-                                {
-                                    if (this.flip == this.colskip)
-                                    {
-                                        this.flip = 0;
-                                    }
-                                    else
-                                    {
-                                        this.flip++;
                                         this.Angle = gameObject.transform.eulerAngles;
                                         this.contact = collisionInfo.contacts[0];
                                         this.place = this.contact.point;
-                                        this.EmitSparks(this.place, this.Angle, false);
+                                        this.EmitSparks(this.place, this.Angle, true);
                                         if (!StatMaster.isClient || StatMaster.isLocalSim)
                                         {
-                                            ModNetworking.SendToAll(Messages.emitsmallsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
+                                            ModNetworking.SendToAll(Messages.emitbigsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
                                         }
+                                    }
+                                    else
+                                    {
+                                        if (this.flip == this.colskip)
+                                        {
+                                            this.flip = 0;
+                                        }
+                                        else
+                                        {
+                                            this.flip++;
+                                            this.Angle = gameObject.transform.eulerAngles;
+                                            this.contact = collisionInfo.contacts[0];
+                                            this.place = this.contact.point;
+                                            this.EmitSparks(this.place, this.Angle, false);
+                                            if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                            {
+                                                ModNetworking.SendToAll(Messages.emitsmallsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
+                                            }
+                                        }
+                                    }
+                                    cooldown++;
+                                }
+                                else
+                                {
+                                    if(cooldown<10)
+                                    {
+                                        cooldown++;
+                                    }
+                                    else
+                                    {
+                                        cooldown=0;
                                     }
                                 }
                             }

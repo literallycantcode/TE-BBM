@@ -67,8 +67,17 @@ namespace MysticFix
                         }
                         else
                         {
-                            HJ.breakForce = 90000;
-                            HJ.breakTorque = 90000;
+                            if(gameObject.name=="SpinningBlock")
+                            {
+                                HJ.breakForce = 100000;
+                                HJ.breakTorque = 100000;
+                            }
+                            else
+                            {
+                                HJ.breakForce = 90000;
+                                HJ.breakTorque = 90000;
+                            }
+
                         }
                        
                         if (fcounter == 4)
