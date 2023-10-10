@@ -483,8 +483,7 @@ namespace MysticFix
 				if(sfxblocks.Contains(block.name))
 				{
 					//if(block.GetComponent<ImpactEffects>()==null){block.AddComponent<ImpactEffects>();}
-					if(block.GetComponent<ImpactSounds>()==null){block.AddComponent<ImpactSounds>();}
-					if(block.GetComponent<ImpactSparks>()==null){block.AddComponent<ImpactSparks>();}
+					if(block.GetComponent<ImpactSparksFix>()==null){block.AddComponent<ImpactSparksFix>();}
 				}
 				if(block.name=="Sensor")
 				{
@@ -536,7 +535,7 @@ namespace MysticFix
 				});
 				ModNetworking.CallbacksWrapper callbacksWrapper = ModNetworking.Callbacks;
 				MessageType messageType = Messages.col;
-				callbacksWrapper[messageType] += new Action<Message>(ImpactEffects.ProcessSmallHit);
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSparksFix.ProcessSmallHit);
 
 				Messages.hugehit = ModNetworking.CreateMessageType(new DataType[]
 				{
@@ -546,9 +545,9 @@ namespace MysticFix
 				});
 				callbacksWrapper = ModNetworking.Callbacks;
 				messageType = Messages.hugehit;
-				callbacksWrapper[messageType] += new Action<Message>(ImpactEffects.ProcessHugeHit);
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSparksFix.ProcessHugeHit);
 
-				Messages.playbigsound = ModNetworking.CreateMessageType(DataType.Block);
+			/*	Messages.playbigsound = ModNetworking.CreateMessageType(DataType.Block);
 				callbacksWrapper = ModNetworking.Callbacks;
 				messageType = Messages.playbigsound;
 				callbacksWrapper[messageType] += new Action<Message>(ImpactSounds.ProcessHugeHit);
@@ -556,9 +555,9 @@ namespace MysticFix
 				Messages.playsmallsound = ModNetworking.CreateMessageType(DataType.Block);
 				callbacksWrapper = ModNetworking.Callbacks;
 				messageType = Messages.playsmallsound;
-				callbacksWrapper[messageType] += new Action<Message>(ImpactSounds.ProcessSmallHit);
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSounds.ProcessSmallHit); */
 
-				Messages.emitsmallsparks = ModNetworking.CreateMessageType(new DataType[]
+			/*	Messages.emitsmallsparks = ModNetworking.CreateMessageType(new DataType[]
 				{
 					DataType.Vector3,
 					DataType.Vector3,
@@ -576,7 +575,7 @@ namespace MysticFix
 				});
 				callbacksWrapper = ModNetworking.Callbacks;
 				messageType = Messages.emitbigsparks;
-				callbacksWrapper[messageType] += new Action<Message>(ImpactSparks.ProcessHugeHit);
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSparks.ProcessHugeHit); */
 
 				Debug.Log("Setup Networking OK");
 			}
