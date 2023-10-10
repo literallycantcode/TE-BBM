@@ -191,10 +191,10 @@ namespace MysticFix
 			Vector3 vector = (Vector3)m.GetData(0);
 			Vector3 vector2 = (Vector3)m.GetData(1);
 			Block block = (Block)m.GetData(2);
-			ImpactEffects sparkScript = block.InternalObject.GetComponent<ImpactEffects>();
+			ImpactSparksFix sparkScript = block.InternalObject.GetComponent<ImpactSparksFix>();
 			if (sparkScript == null)
 			{
-				sparkScript = block.InternalObject.gameObject.AddComponent<ImpactEffects>();
+				sparkScript = block.InternalObject.gameObject.AddComponent<ImpactSparksFix>();
 			}
 			sparkScript.EmitSparks(vector, vector2, false);
 		}
@@ -204,21 +204,21 @@ namespace MysticFix
 			Vector3 vector = (Vector3)m.GetData(0);
 			Vector3 vector2 = (Vector3)m.GetData(1);
 			Block block = (Block)m.GetData(2);
-			ImpactEffects sparkScript = block.InternalObject.GetComponent<ImpactEffects>();
+			ImpactSparksFix sparkScript = block.InternalObject.GetComponent<ImpactSparksFix>();
 			bool flag = sparkScript == null;
 			if (flag)
 			{
-				sparkScript = block.InternalObject.gameObject.AddComponent<ImpactEffects>();
+				sparkScript = block.InternalObject.gameObject.AddComponent<ImpactSparksFix>();
 			}
 			sparkScript.EmitSparks(vector, vector2, true);
 		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Spark Emission
         public void EmitSparks(Vector3 contact, Vector3 angle, bool mode)
         {
-            ImpactEffects.emitParams.position = contact;
-            ImpactEffects.emitParams.startSize = UnityEngine.Random.Range(0.1f, 0.35f);
-            ImpactEffects.emitParams.startColor = new Color32(byte.MaxValue, 90, 0, byte.MaxValue);
-            ImpactEffects.emitParams.startLifetime = UnityEngine.Random.Range(0.1f, 2f);
+            ImpactSparksFix.emitParams.position = contact;
+            ImpactSparksFix.emitParams.startSize = UnityEngine.Random.Range(0.1f, 0.35f);
+            ImpactSparksFix.emitParams.startColor = new Color32(byte.MaxValue, 90, 0, byte.MaxValue);
+            ImpactSparksFix.emitParams.startLifetime = UnityEngine.Random.Range(0.1f, 2f);
             if (mode)
             {
                 bool flag = !Soundfiles.mute;
@@ -229,8 +229,8 @@ namespace MysticFix
                     this.Hitsound.pitch = Time.timeScale;
                     this.Hitsound.Play();
                 }
-                ImpactEffects.emitParams.applyShapeToPosition = true;
-                this.Sparks.Emit(ImpactEffects.emitParams, this.hugehitcount);
+                ImpactSparksFix.emitParams.applyShapeToPosition = true;
+                this.Sparks.Emit(ImpactSparksFix.emitParams, this.hugehitcount);
             }
             else
             {
@@ -242,8 +242,8 @@ namespace MysticFix
                     this.SmallHitsound.pitch = Time.timeScale;
                     this.SmallHitsound.Play();
                 }
-                ImpactEffects.emitParams.applyShapeToPosition = false;
-                this.Sparks.Emit(ImpactEffects.emitParams, 1);
+                ImpactSparksFix.emitParams.applyShapeToPosition = false;
+                this.Sparks.Emit(ImpactSparksFix.emitParams, 1);
             }
         }
     }
