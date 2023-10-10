@@ -11,7 +11,8 @@ using UnityEngine;
 namespace MysticFix
   {
   public class ImpactSparksFix : MonoBehaviour
-  {
+  {	
+  	////taken from ImpactEffects
  	public BlockBehaviour BB;
 	public ModTexture Sparktex = ModResource.GetTexture("sparkglow");
 	public ParticleSystem Sparks;
@@ -20,18 +21,22 @@ namespace MysticFix
 	public AudioSource SmallHitsound;
   	public List<AudioClip> HH = new List<AudioClip>();
   	public List<AudioClip> SH = new List<AudioClip>();
-	public int hugehitcount = 40;
+	public int hugehitcount = 35;
   	public int colskip = 1;
   	public int flip = 0;
   	public Vector3 Angle;
   	public Vector3 place;
   	public ContactPoint contact;
   	public int Maxcol = 200;
+	////taken from ImpactSparks
+ 	public int cooldown = 0;
+  	
+ 	////taken from ImpactSounds
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Awake function
     public void Awake()
         {
-            Console.Log("Impact Effects Added to "+gameObject.name);
+            Console.Log("Impact Sparks Fix "+gameObject.name);
             this.BB = base.GetComponent<BlockBehaviour>();
             this.initSparkFX();
             bool flag = !this.BB.isSimulating;
