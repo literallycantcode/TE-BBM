@@ -6,8 +6,8 @@
 	-->
 
 	<!-- General information about the mod. -->
-	<Name>MysticMod</Name>
-	<Author>Mystic</Author> <!-- FIX: Insert your name here. -->
+	<Name>HE-BBMod</Name>
+	<Author>huetobi,E</Author> <!-- FIX: Insert your name here. -->
 	<!-- Major.Minor.Build -->
 	<Version>0.5.6</Version>
 	
@@ -122,26 +122,8 @@
 	<Resources>
 		<Texture name="icon" path="icon.png" />
 		<Texture name="sparkglow" path="sparkglow.png" />
-
-		<AudioClip name="air1" path="Sounds/air1.wav" />
-		<AudioClip name="air2" path="Sounds/air2.wav" />
-		<AudioClip name="air3" path="Sounds/air3.wav" />
-		<AudioClip name="air4" path="Sounds/air4.wav" />
-		<AudioClip name="air5" path="Sounds/air5.wav" />
-		<AudioClip name="air6" path="Sounds/air6.wav" />
-		<AudioClip name="air7" path="Sounds/air7.wav" />
-		<AudioClip name="air8" path="Sounds/air8.wav" />
-		<AudioClip name="air9" path="Sounds/air9.wav" />
-		<AudioClip name="air10" path="Sounds/air10.wav" />
-		<AudioClip name="air11" path="Sounds/air11.wav" />
-		<AudioClip name="air12" path="Sounds/air12.wav" />
-		<AudioClip name="air13" path="Sounds/air13.wav" />
 		
-		<AudioClip name="air_Broken" path="Sounds/air_Broken.wav" />
-		
-		
-		<AudioClip name="bigmotor_loop" path="Sounds/Looped_Hums/bigmotor_loop.wav" />
-		<AudioClip name="bigmotor_Stop" path="Sounds/Looped_Hums/bigmotor_Stop.wav" />
+		<AudioClip name="air_Broken" path="air_Broken.wav" />
 		
 		<AudioClip name="hh0" path="impactSFX/hh0.wav" />
 		<AudioClip name="hh1" path="impactSFX/hh1.wav" />
@@ -170,6 +152,6 @@
 
 
 <!-- This value is automatically generated. Do not change it or you may break machine&level save files. -->
-<ID>6ebc248a-9b48-401b-ba86-3b7fbad93848</ID>
+<ID>980c512d-885d-40ba-acc4-44a73b4d0a7f</ID>
 
 </Mod>
