@@ -12,21 +12,21 @@ namespace MysticFix
   {
   public class ImpactSparksFix : MonoBehaviour
   {
-  public BlockBehaviour BB;
-  public ModTexture Sparktex = ModResource.GetTexture("sparkglow");
-  public ParticleSystem Sparks;
-  public static ParticleSystem.EmitParams emitParams = default(ParticleSystem.EmitParams);
-  public AudioSource Hitsound;
-  public AudioSource SmallHitsound;
-  public List<AudioClip> HH = new List<AudioClip>();
-  public List<AudioClip> SH = new List<AudioClip>();
-  public int hugehitcount = 40;
-  public int colskip = 1;
-  public int flip = 0;
-  public Vector3 Angle;
-  public Vector3 place;
-  public ContactPoint contact;
-  public int Maxcol = 200;
+ 	public BlockBehaviour BB;
+	public ModTexture Sparktex = ModResource.GetTexture("sparkglow");
+	public ParticleSystem Sparks;
+	public static ParticleSystem.EmitParams emitParams = default(ParticleSystem.EmitParams);
+	public AudioSource Hitsound;
+	public AudioSource SmallHitsound;
+  	public List<AudioClip> HH = new List<AudioClip>();
+  	public List<AudioClip> SH = new List<AudioClip>();
+	public int hugehitcount = 40;
+  	public int colskip = 1;
+  	public int flip = 0;
+  	public Vector3 Angle;
+  	public Vector3 place;
+  	public ContactPoint contact;
+  	public int Maxcol = 200;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Awake function
     public void Awake()
