@@ -82,7 +82,7 @@
 	<Assemblies>
 		<!-- <Assembly path="SomeAssembly.dll" /> -->
 		<!-- <ScriptAssembly path="SomeAssembly/" /> -->
-		<ScriptAssembly path="MysticMod_Assembly/" />
+		<ScriptAssembly path="HE-BBMod_Assembly/" />
 	</Assemblies>
 	
 	<!-- Any blocks your mod adds to the game.
