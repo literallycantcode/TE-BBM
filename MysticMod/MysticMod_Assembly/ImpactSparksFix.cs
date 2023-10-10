@@ -16,7 +16,6 @@ namespace MysticFix
   public ModTexture Sparktex = ModResource.GetTexture("sparkglow");
   public ParticleSystem Sparks;
   public static ParticleSystem.EmitParams emitParams = default(ParticleSystem.EmitParams);
-  public int floorLayer = 29;
   public AudioSource Hitsound;
   public AudioSource SmallHitsound;
   public List<AudioClip> HH = new List<AudioClip>();
@@ -72,9 +71,62 @@ namespace MysticFix
                 Console.Log("Audio set up");
             }
         }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Collision Detect
+	
+	 public void OnCollisionEnter(Collision collisionInfo)
+		{
+            if(!this.BB.isSimulating || !this.BB.SimPhysics || collisionInfo == null || collisionInfo.rigidbody == null)
+            {
+                GameObject gameObject = collisionInfo.gameObject;
+                float sqrMagnitude = collisionInfo.relativeVelocity.sqrMagnitude;
+					
+							if (collisionInfo.impulse.sqrMagnitude <= 90000f)
+							{
+								this.Angle = gameObject.transform.eulerAngles;
+								this.contact = collisionInfo.contacts[0];
+								this.place = this.contact.point;
+                                Console.Log("Big Hit");
+								this.EmitSparks(this.place, this.Angle, true);
+								bool flag6 = !StatMaster.isMP || StatMaster.isClient;
+								if (!flag6)
+								{
+									bool sendmess = Soundfiles.sendmess;
+									if (sendmess)
+									{
+										ModNetworking.SendToAll(Messages.hugehit.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
+									}
+								}
+							}
+							else
+							{
+								if (this.flip == this.colskip)
+								{
+									this.flip = 0;
+								}
+								else
+								{
+									this.flip++;
+									this.Angle = gameObject.transform.eulerAngles;
+									this.contact = collisionInfo.contacts[0];
+									this.place = this.contact.point;
+                                    Console.Log("Small Hit");
+									this.EmitSparks(this.place, this.Angle, false);
+									bool flag8 = !StatMaster.isMP || StatMaster.isClient;
+									if (!flag8)
+									{
+										bool sendmess2 = Soundfiles.sendmess;
+										if (sendmess2)
+										{
+											ModNetworking.SendInSimulation(Messages.col.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
+										}
+									}
+								}
+							}
+						}
+					}
+	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Initialize Sparks FX
-     public void initSparkFX()
+ 	    public void initSparkFX()
 		{
 			bool flag = this.BB.GetComponent<ParticleSystem>();
 			if (!flag)
