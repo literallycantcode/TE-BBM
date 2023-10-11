@@ -22,8 +22,8 @@ namespace MysticFix
   	public List<AudioClip> HH = new List<AudioClip>();
   	public List<AudioClip> SH = new List<AudioClip>();
 	public int hugehitcount = 35;
-  	public int colskip = 1;
-  	public int flip = 0;
+  	//public int colskip = 1;
+  	//public int flip = 0;
   	public Vector3 Angle;
   	public Vector3 place;
   	public ContactPoint contact;
@@ -85,50 +85,62 @@ namespace MysticFix
                 GameObject gameObject = collisionInfo.gameObject;
                 float sqrMagnitude = collisionInfo.relativeVelocity.sqrMagnitude;
 					
-							if (collisionInfo.impulse.sqrMagnitude <= 90000f)
-							{
-								this.Angle = gameObject.transform.eulerAngles;
-								this.contact = collisionInfo.contacts[0];
-								this.place = this.contact.point;
-                                Console.Log("Big Hit");
-								this.EmitSparks(this.place, this.Angle, true);
-								bool flag6 = !StatMaster.isMP || StatMaster.isClient;
-								if (!flag6)
-								{
-									bool sendmess = Soundfiles.sendmess;
-									if (sendmess)
-									{
-										ModNetworking.SendToAll(Messages.hugehit.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
-									}
-								}
-							}
-							else
-							{
-								if (this.flip == this.colskip)
-								{
-									this.flip = 0;
-								}
-								else
-								{
-									this.flip++;
-									this.Angle = gameObject.transform.eulerAngles;
-									this.contact = collisionInfo.contacts[0];
-									this.place = this.contact.point;
-                                    Console.Log("Small Hit");
-									this.EmitSparks(this.place, this.Angle, false);
-									bool flag8 = !StatMaster.isMP || StatMaster.isClient;
-									if (!flag8)
-									{
-										bool sendmess2 = Soundfiles.sendmess;
-										if (sendmess2)
-										{
-											ModNetworking.SendInSimulation(Messages.col.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
-										}
-									}
-								}
-							}
+			if (collisionInfo.impulse.sqrMagnitude >= 20000f && collisionInfo.impulse.sqrMagnitude <= 90000f)
+				{
+					    Console.Log("Small Hit");
+	 				    //this.flip++;
+                                            this.Angle = gameObject.transform.eulerAngles;
+                                            this.contact = collisionInfo.contacts[0];
+                                            this.place = this.contact.point;
+                                           
+					    this.EmitSparks(this.place, this.Angle, false);
+                                            if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                            {
+                                                
+						ModNetworking.SendToAll(Messages.emitsmallsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
+                                            }	
+
+	 				this.EmitSparks(this.place, this.Angle, false);
+					bool flag8 = !StatMaster.isMP || StatMaster.isClient;
+						if (!flag8)
+						{
+						bool sendmess2 = Soundfiles.sendmess;
+						if (sendmess2)
+						{
+						ModNetworking.SendInSimulation(Messages.col.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
 						}
+						}
+
+      					ModNetworking.SendToAll(Messages.playsmallsound.CreateMessage(this.BB))		
+				}
+			if  (collisionInfo.impulse.sqrMagnitude >= 90000f)
+				{
+       				this.contact = collisionInfo.contacts[0];
+	   			 Console.Log("Big Hit");
+				this.place = this.contact.point;
+                               
+				this.EmitSparks(this.place, this.Angle, true);
+				bool flag6 = !StatMaster.isMP || StatMaster.isClient;
+				if (!flag6)
+					{
+					bool sendmess = Soundfiles.sendmess;
+				if (sendmess)
+					{
+					ModNetworking.SendToAll(Messages.hugehit.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
 					}
+     					}
+	  
+	  			 this.EmitSparks(this.place, this.Angle, true);
+                                        if (!StatMaster.isClient || StatMaster.isLocalSim)
+                                        {
+                                            ModNetworking.SendToAll(Messages.emitbigsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
+                                        }
+	  				
+                                	ModNetworking.SendToAll(Messages.playbigsound.CreateMessage(this.BB));
+                                        
+				}
+    		}
+      }
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Initialize Sparks FX
  	    public void initSparkFX()
@@ -246,5 +258,52 @@ namespace MysticFix
                 this.Sparks.Emit(ImpactSparksFix.emitParams, 1);
             }
         }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// impact sounds
+ public void playImpactSound(bool big)
+        {
+            if(big)
+            {
+                    int num = UnityEngine.Random.Range(0, this.HH.Count);
+                    this.Hitsound.clip = this.HH[num];
+                    this.Hitsound.pitch = Time.timeScale;
+                    this.Hitsound.Play();
+            }
+            else
+            {
+                    int num2 = UnityEngine.Random.Range(0, this.SH.Count);
+                    this.Hitsound.clip = this.SH[num2];
+                    this.Hitsound.pitch = Time.timeScale;
+                    this.Hitsound.Play();
+            }
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static void ProcessHugeHit(Message m)
+		{
+            Block block = (Block)m.GetData(0);
+            ImpactSounds impactSounds = block.InternalObject.GetComponent<ImpactSounds>();
+            bool flag = impactSounds == null;
+			if (flag)
+			{
+				impactSounds = block.InternalObject.gameObject.AddComponent<ImpactSounds>();
+			}
+            impactSounds.playImpactSound(true);
+            Console.Log("HugeHit Message Sent");
+        }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static void ProcessSmallHit(Message m)
+		{
+            Block block = (Block)m.GetData(0);
+            ImpactSounds impactSounds = block.InternalObject.GetComponent<ImpactSounds>();
+            bool flag = impactSounds == null;
+			if (flag)
+			{
+				impactSounds = block.InternalObject.gameObject.AddComponent<ImpactSounds>();
+			}
+            impactSounds.playImpactSound(false);
+            Console.Log("SmallHit Message Sent");
+        }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
     }
 }
+
