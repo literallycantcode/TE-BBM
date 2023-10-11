@@ -225,7 +225,7 @@ namespace MysticFix
 			sparkScript.EmitSparks(vector, vector2, true);
 		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Spark Emission
-        public void EmitSparks(Vector3 contact, Vector3 angle, bool mode)
+       public void EmitSparks(Vector3 contact, Vector3 angle, bool mode)
         {
             ImpactSparksFix.emitParams.position = contact;
             ImpactSparksFix.emitParams.startSize = UnityEngine.Random.Range(0.1f, 0.35f);
@@ -257,7 +257,7 @@ namespace MysticFix
                 ImpactSparksFix.emitParams.applyShapeToPosition = false;
                 this.Sparks.Emit(ImpactSparksFix.emitParams, 1);
             }
-        }
+        } 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// impact sounds
  public void playImpactSound(bool big)
@@ -304,6 +304,55 @@ namespace MysticFix
             Console.Log("SmallHit Message Sent");
         }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+        public void EmitSparks(Vector3 contact, Vector3 angle, bool mode)
+        {
+            ImpactSparks.emitParams.position = contact;
+            ImpactSparks.emitParams.startSize = UnityEngine.Random.Range(0.1f, 0.35f);
+            ImpactSparks.emitParams.startColor = new Color32(byte.MaxValue, 90, 0, byte.MaxValue);
+            ImpactSparks.emitParams.startLifetime = UnityEngine.Random.Range(0.1f, 2f);
+            if (mode)
+            {
+                ImpactSparks.emitParams.applyShapeToPosition = true;
+                this.Sparks.Emit(ImpactSparks.emitParams, this.hugehitcount);
+            }
+            else
+            {
+                ImpactSparks.emitParams.applyShapeToPosition = false;
+                this.Sparks.Emit(ImpactSparks.emitParams, 1);
+            }
+        }
+
+        public static void ProcessHugeHit(Message m)
+		{
+            Vector3 vector = (Vector3)m.GetData(0);
+			Vector3 vector2 = (Vector3)m.GetData(1);
+			Block block = (Block)m.GetData(2);
+            ImpactSparks impactSparks = block.InternalObject.GetComponent<ImpactSparks>();
+            bool flag = impactSparks == null;
+			if (flag)
+			{
+				impactSparks = block.InternalObject.gameObject.AddComponent<ImpactSparks>();
+			}
+            impactSparks.EmitSparks(vector,vector2,true);
+            Console.Log("HugeSparks Message Sent");
+        }
+
+        public static void ProcessSmallHit(Message m)
+		{
+            Vector3 vector = (Vector3)m.GetData(0);
+			Vector3 vector2 = (Vector3)m.GetData(1);
+			Block block = (Block)m.GetData(2);
+            ImpactSparks impactSparks = block.InternalObject.GetComponent<ImpactSparks>();
+            bool flag = impactSparks == null;
+			if (flag)
+			{
+				impactSparks = block.InternalObject.gameObject.AddComponent<ImpactSparks>();
+			}
+            impactSparks.EmitSparks(vector,vector2,false);
+            Console.Log("SmallSparks Message Sent");
+        }
+    
     }
+
 }
 
