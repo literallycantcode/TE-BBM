@@ -547,17 +547,17 @@ namespace MysticFix
 				messageType = Messages.hugehit;
 				callbacksWrapper[messageType] += new Action<Message>(ImpactSparksFix.ProcessHugeHit);
 
-			/*	Messages.playbigsound = ModNetworking.CreateMessageType(DataType.Block);
+				Messages.playbigsound = ModNetworking.CreateMessageType(DataType.Block);
 				callbacksWrapper = ModNetworking.Callbacks;
 				messageType = Messages.playbigsound;
-				callbacksWrapper[messageType] += new Action<Message>(ImpactSounds.ProcessHugeHit);
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSparksFix.ProcessHugeHit);
 
 				Messages.playsmallsound = ModNetworking.CreateMessageType(DataType.Block);
 				callbacksWrapper = ModNetworking.Callbacks;
 				messageType = Messages.playsmallsound;
-				callbacksWrapper[messageType] += new Action<Message>(ImpactSounds.ProcessSmallHit); */
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSparksFix.ProcessSmallHit); 
 
-			/*	Messages.emitsmallsparks = ModNetworking.CreateMessageType(new DataType[]
+				Messages.emitsmallsparks = ModNetworking.CreateMessageType(new DataType[]
 				{
 					DataType.Vector3,
 					DataType.Vector3,
@@ -565,7 +565,7 @@ namespace MysticFix
 				});
 				callbacksWrapper = ModNetworking.Callbacks;
 				messageType = Messages.emitsmallsparks;
-				callbacksWrapper[messageType] += new Action<Message>(ImpactSparks.ProcessSmallHit);
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSparksFix.ProcessSmallHit);
 
 				Messages.emitbigsparks = ModNetworking.CreateMessageType(new DataType[]
 				{
@@ -575,7 +575,7 @@ namespace MysticFix
 				});
 				callbacksWrapper = ModNetworking.Callbacks;
 				messageType = Messages.emitbigsparks;
-				callbacksWrapper[messageType] += new Action<Message>(ImpactSparks.ProcessHugeHit); */
+				callbacksWrapper[messageType] += new Action<Message>(ImpactSparksFix.ProcessHugeHit); 
 
 				Debug.Log("Setup Networking OK");
 			}
