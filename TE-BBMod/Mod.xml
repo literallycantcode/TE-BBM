@@ -6,10 +6,10 @@
 	-->
 
 	<!-- General information about the mod. -->
-	<Name>HE-BBMod</Name>
+	<Name>TE-BBMod</Name>
 	<Author>huetobi,E</Author> <!-- FIX: Insert your name here. -->
 	<!-- Major.Minor.Build -->
-	<Version>0.5.6</Version>
+	<Version>0.1.0</Version>
 	
 	<Description>
 	Various tweaks and adjustments to the game/blocks <!-- FIX: Insert a short description here. -->
@@ -82,7 +82,7 @@
 	<Assemblies>
 		<!-- <Assembly path="SomeAssembly.dll" /> -->
 		<!-- <ScriptAssembly path="SomeAssembly/" /> -->
-		<ScriptAssembly path="HE-BBMod_Assembly/" />
+		<ScriptAssembly path="TE-BBMod_Assembly/" />
 	</Assemblies>
 	
 	<!-- Any blocks your mod adds to the game.
