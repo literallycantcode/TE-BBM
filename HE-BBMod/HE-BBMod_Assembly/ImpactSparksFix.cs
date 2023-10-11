@@ -15,7 +15,7 @@ namespace MysticFix
 		public ModTexture Sparktex = ModResource.GetTexture("sparkglow");
 		public ParticleSystem Sparks;
 		public static ParticleSystem.EmitParams emitParams = default(ParticleSystem.EmitParams);
-		public int hugehitcount = 35;
+		public int hugehitcount = 20;
 		public Vector3 Angle;
 		public Vector3 place;
 		public ContactPoint contact;
@@ -61,7 +61,7 @@ namespace MysticFix
 				this.SmallHitsound.spatialBlend = 1f;
 				this.SmallHitsound.maxDistance = 200f;
 				this.SmallHitsound.rolloffMode = AudioRolloffMode.Linear;
-				this.SmallHitsound.volume = 0.05f;
+				this.SmallHitsound.volume = 0.03f;
 				this.SmallHitsound.playOnAwake = false;
 				this.SmallHitsound.loop = false;
                 Console.Log("Audio set up");
@@ -130,7 +130,7 @@ namespace MysticFix
 			{
 				if (sqrMagnitude < 300000f)
 				{
-					if (collisionInfo.impulse.sqrMagnitude <= 90000f)
+					if (collisionInfo.impulse.sqrMagnitude <= 120000f)
 					{
 						this.Angle = gameObject.transform.eulerAngles;
 						this.contact = collisionInfo.contacts[0];
