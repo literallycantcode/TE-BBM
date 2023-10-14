@@ -126,7 +126,7 @@ namespace MysticFix
 		{
 			float sqrMagnitude = collisionInfo.relativeVelocity.sqrMagnitude;
 
-			if (sqrMagnitude > 10000f)
+			if (sqrMagnitude > 25000f)
 			{
 				if (sqrMagnitude < 300000f)
 				{
