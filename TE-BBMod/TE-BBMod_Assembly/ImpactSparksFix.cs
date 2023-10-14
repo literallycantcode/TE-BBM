@@ -126,12 +126,13 @@ namespace MysticFix
 		{
 			float sqrMagnitude = collisionInfo.relativeVelocity.sqrMagnitude;
 
-			if (sqrMagnitude > 25000f)
+			if (sqrMagnitude > 10000f)
 			{
 				if (sqrMagnitude < 300000f)
 				{
-					if (collisionInfo.impulse.sqrMagnitude <= 120000f)
+					if (collisionInfo.impulse.sqrMagnitude >= 90000f)
 					{
+						Console.Log("Big");
 						this.Angle = gameObject.transform.eulerAngles;
 						this.contact = collisionInfo.contacts[0];
 						this.place = this.contact.point;
@@ -145,6 +146,7 @@ namespace MysticFix
 					}
 					else
 					{
+						Console.Log("Small");
 						this.Angle = gameObject.transform.eulerAngles;
 						this.contact = collisionInfo.contacts[0];
 						this.place = this.contact.point;
