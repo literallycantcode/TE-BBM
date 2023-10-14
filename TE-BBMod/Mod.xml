@@ -138,6 +138,9 @@
 		<AudioClip name="air13" path="Sounds/air13.wav" />
 		
 		<AudioClip name="air_Broken" path="Sounds/air_Broken.wav" />
+
+		<AudioClip name="bigmotor_loop" path="Sounds/bigmotor_loop.wav" />
+		<AudioClip name="bigmotor_Stop" path="Sounds/bigmotor_Stop.wav" />
 		
 		<AudioClip name="hh0" path="impactSFX/hh0.wav" />
 		<AudioClip name="hh1" path="impactSFX/hh1.wav" />
