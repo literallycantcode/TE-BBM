@@ -15,7 +15,7 @@ namespace MysticFix
 		public ModTexture Sparktex = ModResource.GetTexture("sparkglow");
 		public ParticleSystem Sparks;
 		public static ParticleSystem.EmitParams emitParams = default(ParticleSystem.EmitParams);
-		public int hugehitcount = 20;
+		public int hugehitcount = 45;
 		public Vector3 Angle;
 		public Vector3 place;
 		public ContactPoint contact;
@@ -132,8 +132,8 @@ namespace MysticFix
 				{
 					if (collisionInfo.impulse.sqrMagnitude >= 90000f)
 					{
-						Console.Log("Big");
-						this.Angle = gameObject.transform.eulerAngles;
+						//Console.Log("Big");
+						this.Angle = collisionInfo.relativeVelocity;
 						this.contact = collisionInfo.contacts[0];
 						this.place = this.contact.point;
 						this.EmitSparks(this.place, this.Angle, true);
@@ -146,8 +146,8 @@ namespace MysticFix
 					}
 					else
 					{
-						Console.Log("Small");
-						this.Angle = gameObject.transform.eulerAngles;
+						//Console.Log("Small");
+						this.Angle = -collisionInfo.relativeVelocity;
 						this.contact = collisionInfo.contacts[0];
 						this.place = this.contact.point;
 						this.EmitSparks(this.place, this.Angle, false);
@@ -176,6 +176,7 @@ namespace MysticFix
 			else
 			{
 				ImpactSparksFix.emitParams.applyShapeToPosition = false;
+				ImpactSparksFix.emitParams.velocity = angle;
 				this.Sparks.Emit(ImpactSparksFix.emitParams, 1);
 			}
 		}
@@ -192,9 +193,9 @@ namespace MysticFix
             else
             {
                     int num2 = UnityEngine.Random.Range(0, this.SH.Count);
-                    this.Hitsound.clip = this.SH[num2];
-                    this.Hitsound.pitch = Time.timeScale;
-                    this.Hitsound.Play();
+                    this.SmallHitsound.clip = this.SH[num2];
+                    this.SmallHitsound.pitch = Time.timeScale;
+                    this.SmallHitsound.Play();
             }
         }
 

@@ -11,9 +11,8 @@ namespace MysticFix
     {
         private BlockBehaviour BB;
         private SoundOnCollide SOC;
-        private MToggle SmokeToggle;
         private static MessageType mToggleDust;
-        private bool dustActive = true;
+        private bool dustActive = false;
         protected override int FRAMECOUNT { get; } = 1;
         protected override bool DESTROY_AT_END { get; } = false;
         internal static void SetupNetworking()
@@ -31,14 +30,6 @@ namespace MysticFix
             base.Awake();
             BB = GetComponent<BlockBehaviour>();
             SOC = GetComponent<SoundOnCollide>();
-
-            SmokeToggle = BB.AddToggle("Enable Smoke", "Enable Smoke", dustActive);
-            SmokeToggle.Toggled += (bool value) =>
-            {
-                dustActive = value;
-                if (!BB.SimPhysics) return;
-                ModNetworking.SendToAll(mToggleDust.CreateMessage(BB, dustActive));
-            };
         }
 
         protected override void DelayedAction()
