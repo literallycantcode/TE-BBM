@@ -33,7 +33,7 @@ namespace MysticFix
 
 			if (this.BB.isSimulating)
 			{
-                this.Hitsound = this.BB.gameObject.AddComponent<AudioSource>();
+				this.Hitsound = this.BB.gameObject.AddComponent<AudioSource>();
 				this.HH.Add(Soundfiles.hh0);
 				this.HH.Add(Soundfiles.hh1);
 				this.HH.Add(Soundfiles.hh2);
@@ -64,8 +64,8 @@ namespace MysticFix
 				this.SmallHitsound.volume = 0.03f;
 				this.SmallHitsound.playOnAwake = false;
 				this.SmallHitsound.loop = false;
-                Console.Log("Audio set up");
-            }
+				Console.Log("Audio set up");
+			}
 		}
 
 		public void initSparkFX()
@@ -140,7 +140,6 @@ namespace MysticFix
 						playImpactSound(true);
 						if (!StatMaster.isClient || StatMaster.isLocalSim)
 						{
-							ModNetworking.SendToAll(Messages.playbigsound.CreateMessage(this.BB));
 							ModNetworking.SendToAll(Messages.emitbigsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
 						}
 					}
@@ -154,7 +153,6 @@ namespace MysticFix
 						playImpactSound(false);
 						if (!StatMaster.isClient || StatMaster.isLocalSim)
 						{
-							ModNetworking.SendToAll(Messages.playsmallsound.CreateMessage(this.BB));
 							ModNetworking.SendToAll(Messages.emitsmallsparks.CreateMessage(new object[] { this.place, this.Angle, this.BB }));
 						}
 					}
@@ -170,6 +168,7 @@ namespace MysticFix
 			ImpactSparksFix.emitParams.startLifetime = UnityEngine.Random.Range(0.1f, 2f);
 			if (mode)
 			{
+				ImpactSparksFix.emitParams.ResetVelocity();
 				ImpactSparksFix.emitParams.applyShapeToPosition = true;
 				this.Sparks.Emit(ImpactSparksFix.emitParams, this.hugehitcount);
 			}
@@ -182,22 +181,22 @@ namespace MysticFix
 		}
 
 		public void playImpactSound(bool big)
-        {
-            if(big)
-            {
-                    int num = UnityEngine.Random.Range(0, this.HH.Count);
-                    this.Hitsound.clip = this.HH[num];
-                    this.Hitsound.pitch = Time.timeScale;
-                    this.Hitsound.Play();
-            }
-            else
-            {
-                    int num2 = UnityEngine.Random.Range(0, this.SH.Count);
-                    this.SmallHitsound.clip = this.SH[num2];
-                    this.SmallHitsound.pitch = Time.timeScale;
-                    this.SmallHitsound.Play();
-            }
-        }
+		{
+			if (big)
+			{
+				int num = UnityEngine.Random.Range(0, this.HH.Count);
+				this.Hitsound.clip = this.HH[num];
+				this.Hitsound.pitch = Time.timeScale;
+				this.Hitsound.Play();
+			}
+			else
+			{
+				int num2 = UnityEngine.Random.Range(0, this.SH.Count);
+				this.SmallHitsound.clip = this.SH[num2];
+				this.SmallHitsound.pitch = Time.timeScale;
+				this.SmallHitsound.Play();
+			}
+		}
 
 		public static void ProcessHugeHit(Message m)
 		{
@@ -210,16 +209,8 @@ namespace MysticFix
 				impactSparks = block.InternalObject.gameObject.AddComponent<ImpactSparksFix>();
 			}
 			impactSparks.EmitSparks(vector, vector2, true);
-			Console.Log("HugeSparks Message Sent");
-
-			Block sBlock = (Block)m.GetData(0);
-            ImpactSparksFix impactSounds = sBlock.InternalObject.GetComponent<ImpactSparksFix>();
-			if (impactSparks == null)
-			{
-				impactSounds = sBlock.InternalObject.gameObject.AddComponent<ImpactSparksFix>();
-			}
-            impactSounds.playImpactSound(true);
-            Console.Log("HugeHit Message Sent");
+			impactSparks.playImpactSound(true);
+			//Console.Log("HugeSparks Message Recieved");
 		}
 
 		public static void ProcessSmallHit(Message m)
@@ -233,17 +224,8 @@ namespace MysticFix
 				impactSparks = block.InternalObject.gameObject.AddComponent<ImpactSparksFix>();
 			}
 			impactSparks.EmitSparks(vector, vector2, false);
-			Console.Log("SmallSparks Message Sent");
-
-			Block sBlock = (Block)m.GetData(0);
-            ImpactSparksFix impactSounds = sBlock.InternalObject.GetComponent<ImpactSparksFix>();
-			if (impactSounds == null)
-			{
-				impactSounds = sBlock.InternalObject.gameObject.AddComponent<ImpactSparksFix>();
-			}
-            impactSounds.playImpactSound(false);
-            Console.Log("SmallHit Message Sent");
+			impactSparks.playImpactSound(false);
+			//Console.Log("SmallSparks Message Received");
 		}
 	}
 }
-
