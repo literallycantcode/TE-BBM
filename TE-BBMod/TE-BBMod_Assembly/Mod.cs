@@ -133,11 +133,39 @@ namespace MysticFix
 				{
 					switch (block.name)
 					{
+						case "Drill":
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							Console.Log("Modified properties of: " + block.name);
+							break;
+						case "WheelUnpowered":
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
+							Console.Log("Modified properties of: " + block.name);
+							break;
+						case "ShrapnelCannon":
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
+							Console.Log("Modified properties of: " + block.name);
+							break;
+						case "Torch":
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
+							Console.Log("Modified properties of: " + block.name);
+							break;
 						case "GripPad":
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Log":
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
@@ -152,14 +180,15 @@ namespace MysticFix
 							colliders = block.GetComponentsInChildren<BoxCollider>();
 							foreach (BoxCollider collider in colliders)
 							{
-								collider.material.staticFriction = 0.12f;
-								collider.material.dynamicFriction = 0.12f;
+								collider.material.staticFriction = 0.1f;
+								collider.material.dynamicFriction = 0.1f;
 								collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 							}
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Spike":
 							BB.Prefab.myDamageType = DamageType.Blunt;
+							block.GetComponent<Rigidbody>().mass = 0.6f;
 							block.GetComponent<Rigidbody>().angularDrag = 0;
 							block.GetComponent<Rigidbody>().drag = 0;
 							block.GetComponent<ConfigurableJoint>().breakForce = 80000.0f;
@@ -168,8 +197,8 @@ namespace MysticFix
 							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							foreach (BoxCollider collider in colliders)
 							{
-								collider.material.staticFriction = 0.12f;
-								collider.material.dynamicFriction = 0.12f;
+								collider.material.staticFriction = 0.1f;
+								collider.material.dynamicFriction = 0.1f;
 								collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 							}
 							Console.Log("Modified properties of: " + block.name);
@@ -177,12 +206,17 @@ namespace MysticFix
 						case "Wheel":
 							block.GetComponent<HingeJoint>().breakForce = 60000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 60000.0f;
-
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Suspension":
 							block.GetComponent<ConfigurableJoint>().breakForce = 35000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 35000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Piston":
@@ -200,7 +234,9 @@ namespace MysticFix
 						case "LargeWheel":
 							block.GetComponent<HingeJoint>().breakForce = 70000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 70000.0f;
-
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "CogMediumPowered":
@@ -208,29 +244,35 @@ namespace MysticFix
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "CogMediumUnpowered":
-							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							block.GetComponent<HingeJoint>().breakForce = 60000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 60000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "CogLargeUnpowered":
-							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
-
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "LargeWheelUnpowered":
 							block.GetComponent<Rigidbody>().maxAngularVelocity = 500;
-							block.GetComponent<HingeJoint>().breakForce = 55000.0f;
-							block.GetComponent<HingeJoint>().breakTorque = 55000.0f;
-
+							block.GetComponent<HingeJoint>().breakForce = 60000.0f;
+							block.GetComponent<HingeJoint>().breakTorque = 60000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "FlyingBlock":
 							block.GetComponent<ConfigurableJoint>().breakForce = 20000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 20000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Axle":
@@ -243,23 +285,30 @@ namespace MysticFix
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "WingPanel":
-							block.GetComponent<ConfigurableJoint>().breakForce = 50000.0f;
-							block.GetComponent<ConfigurableJoint>().breakTorque = 50000.0f;
+							block.GetComponent<ConfigurableJoint>().breakForce = 40000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque = 40000.0f;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Swivel":
+							block.GetComponent<Rigidbody>().mass = 0.6f;
 							block.GetComponent<HingeJoint>().breakForce = 30000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 30000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Wing":
-							block.GetComponent<ConfigurableJoint>().breakForce = 50000.0f;
-							block.GetComponent<ConfigurableJoint>().breakTorque = 50000.0f;
+							block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Ballast":
-							block.GetComponent<ConfigurableJoint>().breakForce = 50000.0f;
-							block.GetComponent<ConfigurableJoint>().breakTorque = 50000.0f;
+							block.GetComponent<ConfigurableJoint>().breakForce = 30000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque = 30000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "MetalJaw":
@@ -271,35 +320,60 @@ namespace MysticFix
 						case "SteeringBlock":
 							block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "SteeringHinge":
 							block.GetComponent<Rigidbody>().mass = 0.4f;
 							block.GetComponent<ConfigurableJoint>().breakForce = 30000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 30000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Hinge":
-							block.GetComponent<ConfigurableJoint>().breakForce = 45000.0f;
-							block.GetComponent<ConfigurableJoint>().breakTorque = 45000.0f;
+							block.GetComponent<ConfigurableJoint>().breakForce = 50000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque = 50000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "BallJoint":
 							block.GetComponent<ConfigurableJoint>().breakForce = 30000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 30000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Decoupler":
 							block.GetComponent<ConfigurableJoint>().breakForce = 30000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 30000.0f;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
+							Console.Log("Modified properties of: " + block.name);
+							break;
+						case "Flamethrower":
+							block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "CircularSaw":
 							BB.Prefab.myDamageType = DamageType.Blunt;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "MetalBall":
 							BB.Prefab.myDamageType = DamageType.Blunt;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Propeller":
@@ -312,6 +386,8 @@ namespace MysticFix
 							break;
 						case "SingleWoodenBlock":
 							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
 							configurablejoints = block.GetComponentsInChildren<ConfigurableJoint>();
 							foreach (ConfigurableJoint joint in configurablejoints)
 							{
@@ -321,6 +397,8 @@ namespace MysticFix
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "DoubleWoodenBlock":
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							configurablejoints = block.GetComponentsInChildren<ConfigurableJoint>();
 							foreach (ConfigurableJoint joint in configurablejoints)
@@ -331,6 +409,8 @@ namespace MysticFix
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "WoodenPole":
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							configurablejoints = block.GetComponentsInChildren<ConfigurableJoint>();
 							foreach (ConfigurableJoint joint in configurablejoints)
@@ -367,6 +447,8 @@ namespace MysticFix
 								collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 							}
 							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "ArmorPlateLarge":
@@ -380,6 +462,7 @@ namespace MysticFix
 							block.GetComponent<Rigidbody>().angularDrag = 0;
 							block.GetComponent<Rigidbody>().drag = 0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
+							block.GetComponent<Rigidbody>().mass = 0.5f;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "ArmorPlateRound":
@@ -408,9 +491,15 @@ namespace MysticFix
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "SpinningBlock":
+							colliders = block.GetComponentsInChildren<BoxCollider>();
+							foreach (BoxCollider collider in colliders)
+							{
+								collider.material.staticFriction = 0.05f;
+								collider.material.dynamicFriction = 0.05f;
+								collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
+							}
 							block.GetComponent<Rigidbody>().angularDrag = 0;
 							block.GetComponent<Rigidbody>().drag = 0;
-							block.GetComponent<Rigidbody>().maxAngularVelocity = 5;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Grabber":
@@ -419,7 +508,7 @@ namespace MysticFix
 							block.GetComponent<Rigidbody>().drag = 0.01f;
 							block.GetComponent<ConfigurableJoint>().breakForce = 13750.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 13750.0f;
-							block.GetComponent<Rigidbody>().maxAngularVelocity = 50;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							colliders = block.GetComponentsInChildren<BoxCollider>();
 							foreach (BoxCollider collider in colliders)
 							{
