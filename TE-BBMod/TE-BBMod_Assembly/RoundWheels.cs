@@ -68,7 +68,7 @@ namespace MysticFix
                 if (name == "LargeWheel")
                 {
                     psaf.Position = new Vector3(0, 0, 0.45f);
-                    psaf.Scale = new Vector3(1.4f, 1.4f, 3.75f); //correct is 1.46, only not change because of SHWS
+                    psaf.Scale = new Vector3(1.46f, 1.46f, 3.75f); //correct is 1.46, only not change because of SHWS
                     return psaf;
                 }
                 if (name == "WheelUnpowered")
@@ -80,7 +80,7 @@ namespace MysticFix
                 if (name == "LargeWheelUnpowered")
                 {
                     psaf.Position = new Vector3(0, 0, 0.45f);
-                    psaf.Scale = new Vector3(1.4f, 1.4f, 1.75f); //correct is 1.46, only not change because of SHWS
+                    psaf.Scale = new Vector3(1.4f, 1.4f, 1.75f);
                     return psaf;
                 }
                 return PaS.one;
