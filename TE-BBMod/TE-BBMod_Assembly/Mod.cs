@@ -611,6 +611,8 @@ namespace MysticFix
 			Physics.gravity = new Vector3(Physics.gravity.x, -55f, Physics.gravity.z);
 			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 			StatMaster.Rules.DisableFire = true;
+			
+			Debug.Log("Loaded TE-BBMod Version 1.0.1");
 		}
 
 		public void SetupNetworking()
