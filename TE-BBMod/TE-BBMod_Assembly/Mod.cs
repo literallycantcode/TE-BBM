@@ -240,16 +240,17 @@ namespace MysticFix
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "CogMediumPowered":
-
-							Console.Log("Modified properties of: " + block.name);
-							break;
-						case "CogMediumUnpowered":
-							block.GetComponent<HingeJoint>().breakForce = 60000.0f;
-							block.GetComponent<HingeJoint>().breakTorque = 60000.0f;
+							block.GetComponent<HingeJoint>().breakForce = 90000.0f;
+							block.GetComponent<HingeJoint>().breakTorque = 90000.0f;
 							block.GetComponent<Rigidbody>().angularDrag = 0;
 							block.GetComponent<Rigidbody>().drag = 0;
 							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
-
+							Console.Log("Modified properties of: " + block.name);
+							break;
+						case "CogMediumUnpowered":
+							block.GetComponent<Rigidbody>().angularDrag = 0;
+							block.GetComponent<Rigidbody>().drag = 0;
+							block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
 							Console.Log("Modified properties of: " + block.name);
 							break;
 						case "CogLargeUnpowered":
