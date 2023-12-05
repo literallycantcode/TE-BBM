@@ -613,7 +613,7 @@ namespace MysticFix
 			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 			StatMaster.Rules.DisableFire = true;
 			
-			Debug.Log("Loaded TE-BBMod Version 1.0.1");
+			Debug.Log("Loaded TE-BBMod Version 1.0.2");
 		}
 
 		public void SetupNetworking()
