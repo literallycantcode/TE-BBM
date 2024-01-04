@@ -67,15 +67,15 @@ namespace MysticFix
                         }
                         else
                         {
-                            if(gameObject.name=="SpinningBlock")
-                            {
-                                HJ.breakForce = 100000;
-                                HJ.breakTorque = 100000;
-                            }
-                            else
+                            if(gameObject.name=="CogMediumPowered")
                             {
                                 HJ.breakForce = 90000;
                                 HJ.breakTorque = 90000;
+                            }
+                            else
+                            {
+                                HJ.breakForce = 100000;
+                                HJ.breakTorque = 100000;
                             }
 
                         }
