@@ -45,7 +45,7 @@ namespace MysticFix
             }
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (!StatMaster.isClient || StatMaster.isLocalSim)
             {
@@ -80,7 +80,7 @@ namespace MysticFix
 
                         }
                        
-                        if (fcounter == 4)
+                        if (fcounter == 5)
                             firstframe = true;
                     }
                 }
