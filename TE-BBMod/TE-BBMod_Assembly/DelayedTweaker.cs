@@ -3,9 +3,10 @@ using Modding;
 using Console = Modding.ModConsole;
 namespace MysticFix
 {
-    class DragTweaker : MonoBehaviour
+    class DelayedTweaker : MonoBehaviour
     {
         private GameObject block;
+        private BlockBehaviour BB;
         private int tickCount;
         void Awake()
         {
@@ -13,6 +14,7 @@ namespace MysticFix
             if (gameObject != null)
             {
                 block = gameObject;
+                BB = GetComponent<BlockBehaviour>();
             }
             else
             {
@@ -24,7 +26,7 @@ namespace MysticFix
         {
             if (tickCount < 10)
             {
-                tickCount++
+                tickCount++;
             }
             else
             {
@@ -93,7 +95,28 @@ namespace MysticFix
                             //Console.Log("Modified drag of: " + block.name);
                             break;
                     }
-                    
+                    //Other Tweaks
+                    switch (block.name)
+                    {
+                        case "Hinge":
+                            block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
+                            break;
+                        case "Axle":
+                            Component[] configurablejoints = BB.GetComponentsInChildren<ConfigurableJoint>();
+                            Component[] hingejoints = BB.GetComponentsInChildren<HingeJoint>();
+                            foreach( ConfigurableJoint cJoint in configurablejoints )
+                            {
+                                cJoint.breakForce=60000.0f;
+                                cJoint.breakTorque=60000.0f;
+                            }
+                            foreach( HingeJoint hJoint in hingejoints )
+                            {
+                                hJoint.breakForce=60000.0f;
+                                hJoint.breakTorque=60000.0f;
+                            }
+                            break;   
+                    }
                 }
                 Destroy(this);
             }
