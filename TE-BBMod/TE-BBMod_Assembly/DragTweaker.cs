@@ -24,10 +24,11 @@ namespace MysticFix
         {
             if (tickCount < 10)
             {
-                tickCount = tickCount + 1;
+                tickCount++
             }
             else
             {
+                //Tweak Drags
                 if (block.GetComponent<Rigidbody>() != null)
                 {
                     switch (block.name)
@@ -38,7 +39,7 @@ namespace MysticFix
                         case "SpinningBlock":
                             block.GetComponent<Rigidbody>().angularDrag = 0;
                             block.GetComponent<Rigidbody>().drag = 0;
-                            Console.Log("Modified drag of: " + block.name);
+                            //Console.Log("Modified drag of: " + block.name);
                             break;
 
                         case "WheelUnpowered":
@@ -82,16 +83,17 @@ namespace MysticFix
                             block.GetComponent<Rigidbody>().maxAngularVelocity = 500;
                             block.GetComponent<Rigidbody>().angularDrag = 0;
                             block.GetComponent<Rigidbody>().drag = 0;
-                            Console.Log("Modified drag of: " + block.name);
+                            //Console.Log("Modified drag of: " + block.name);
                             break;
 
                         case "Grabber":
                             block.GetComponent<Rigidbody>().angularDrag = 0;
                             block.GetComponent<Rigidbody>().drag = 0.01f;
                             block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
-                            Console.Log("Modified drag of: " + block.name);
+                            //Console.Log("Modified drag of: " + block.name);
                             break;
                     }
+                    
                 }
                 Destroy(this);
             }
