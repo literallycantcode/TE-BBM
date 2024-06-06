@@ -45,7 +45,8 @@ namespace MysticFix
 				"Wheel",
 				"LargeWheel",
 				"WheelUnpowered",
-				"LargeWheelUnpowered"
+				"LargeWheelUnpowered",
+				"CogLargeUnpowered"
 			};
 
 			string[] spinuptimeblocks ={
@@ -238,6 +239,7 @@ namespace MysticFix
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "WingPanel":
+							block.GetComponent<Rigidbody>().mass = 0.8f;
 							block.GetComponent<ConfigurableJoint>().breakForce = 40000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 40000.0f;
 							//Console.Log("Modified properties of: " + block.name);
