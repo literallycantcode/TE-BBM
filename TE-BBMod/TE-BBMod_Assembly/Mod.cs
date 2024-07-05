@@ -239,7 +239,7 @@ namespace MysticFix
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "WingPanel":
-							block.GetComponent<Rigidbody>().mass = 0.8f;
+							block.GetComponent<Rigidbody>().mass = 1.0f;
 							block.GetComponent<ConfigurableJoint>().breakForce = 40000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 40000.0f;
 							//Console.Log("Modified properties of: " + block.name);
@@ -485,7 +485,7 @@ namespace MysticFix
 			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 			StatMaster.Rules.DisableFire = true;
 			
-			Console.Log("Loaded TE-BBMod Version 1.0.7");
+			Console.Log("Loaded TE-BBMod Version 1.0.8");
 		}
 
 		public void SetupNetworking()
