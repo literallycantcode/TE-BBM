@@ -175,7 +175,7 @@ namespace MysticFix
 							block.GetComponent<ConfigurableJoint>().breakForce = 80000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 80000.0f;
 							colliders = block.GetComponentsInChildren<CapsuleCollider>();
-							foreach (BoxCollider collider in colliders)
+							foreach (CapsuleCollider collider in colliders)
 							{
 								collider.material.staticFriction = 0.1f;
 								collider.material.dynamicFriction = 0.1f;
@@ -485,7 +485,7 @@ namespace MysticFix
 			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 			StatMaster.Rules.DisableFire = true;
 			
-			Console.Log("Loaded TE-BBMod Version 1.0.8");
+			Console.Log("Loaded TE-BBMod Version 1.0.9");
 		}
 
 		public void SetupNetworking()
