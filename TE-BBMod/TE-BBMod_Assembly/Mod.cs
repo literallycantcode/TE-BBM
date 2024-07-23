@@ -299,6 +299,7 @@ namespace MysticFix
 							break;
 						case "CircularSaw":
 							BB.Prefab.myDamageType = DamageType.Blunt;
+							block.GetComponent<CogMotorControllerHinge>().version = 0;//Allows saws to spin freely
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "MetalBall":
@@ -485,7 +486,7 @@ namespace MysticFix
 			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 			StatMaster.Rules.DisableFire = true;
 			
-			Console.Log("Loaded TE-BBMod Version 1.0.9");
+			Console.Log("Loaded TE-BBMod Version 1.0.10");
 		}
 
 		public void SetupNetworking()
