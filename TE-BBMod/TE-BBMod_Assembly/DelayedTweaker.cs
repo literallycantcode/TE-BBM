@@ -38,7 +38,6 @@ namespace MysticFix
                         case "Drill":
                         case "FlyingBlock":
                         case "CircularSaw":
-                        case "SpinningBlock":
                             block.GetComponent<Rigidbody>().angularDrag = 0;
                             block.GetComponent<Rigidbody>().drag = 0;
                             //Console.Log("Modified drag of: " + block.name);
@@ -82,7 +81,21 @@ namespace MysticFix
                         case "Cannon":
                         case "WaterCannon":
                         case "WoodenPanel":
-                            block.GetComponent<Rigidbody>().maxAngularVelocity = 500;
+                        case "SkateWheel":
+                        case "BouncePad":
+                        case "FlyWheel":
+                        case "Sensor":
+                        case "Timer":
+                        case "Anglometer":
+                        case "LogicGate":
+                        case "Altimeter":
+                        case "Speedometer":
+                        case "SpinningBlock":
+                        case "WingPanel":
+                        case "Wing":
+                        case "Propeller":
+                        case "SmallPropeller":
+                            block.GetComponent<Rigidbody>().maxAngularVelocity = 1000;
                             block.GetComponent<Rigidbody>().angularDrag = 0;
                             block.GetComponent<Rigidbody>().drag = 0;
                             //Console.Log("Modified drag of: " + block.name);
@@ -90,10 +103,11 @@ namespace MysticFix
 
                         case "Grabber":
                             block.GetComponent<Rigidbody>().angularDrag = 0;
-                            block.GetComponent<Rigidbody>().drag = 0.01f;
+                            block.GetComponent<Rigidbody>().drag = 0.001f;
                             block.GetComponent<Rigidbody>().maxAngularVelocity = 100;
                             //Console.Log("Modified drag of: " + block.name);
                             break;
+
                     }
                     //Other Tweaks
                     switch (block.name)
@@ -107,12 +121,12 @@ namespace MysticFix
                             Component[] hingejoints = BB.GetComponentsInChildren<HingeJoint>();
                             foreach( ConfigurableJoint cJoint in configurablejoints )
                             {
-                                cJoint.breakForce=60000.0f;
+                                cJoint.breakForce=55000.0f;
                                 cJoint.breakTorque=60000.0f;
                             }
                             foreach( HingeJoint hJoint in hingejoints )
                             {
-                                hJoint.breakForce=60000.0f;
+                                hJoint.breakForce=55000.0f;
                                 hJoint.breakTorque=60000.0f;
                             }
                             break;   

@@ -30,8 +30,7 @@ namespace MysticFix
 				"GripPad"
 			};
 
-			string[] dragfixblocks =
-			{
+			string[] dragfixblocks ={
 				"Wing",
 				"WingPanel",
 			};
@@ -64,7 +63,6 @@ namespace MysticFix
 
 			string[] smokefixblocks ={
 				"Log",
-				"SingleWoodenBlock",
 				"DoubleWoodenBlock"
 			};
 
@@ -151,6 +149,7 @@ namespace MysticFix
 						case "HalfPipe":
 						case "Cannon":
 						case "WaterCannon":
+						case "Axle":
 							Console.Log("Did Nothing To: " + block.name);
 							break;
 						*/
@@ -227,15 +226,6 @@ namespace MysticFix
 						case "FlyingBlock":
 							block.GetComponent<ConfigurableJoint>().breakForce = 20000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 20000.0f;
-							//Console.Log("Modified properties of: " + block.name);
-							break;
-						case "Axle":
-							configurablejoints = block.GetComponentsInChildren<ConfigurableJoint>();
-							foreach (ConfigurableJoint joint in configurablejoints)
-							{
-								joint.breakForce = 60000.0f;
-								joint.breakTorque = 60000.0f;
-							}
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "WingPanel":
@@ -480,13 +470,12 @@ namespace MysticFix
 					ModConsole.Log("Could not find GameObject PROJECTILES when logging into a multiverse session.");
 				}
 			};
-			//PrefabModder.ModPrefab();
 			OptionsMaster.defaultSmoothness = 0f;
 			Physics.gravity = new Vector3(Physics.gravity.x, -55f, Physics.gravity.z);
 			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 			StatMaster.Rules.DisableFire = true;
 			
-			Console.Log("Loaded TE-BBMod Version 1.0.10");
+			Console.Log("Loaded TE-BBMod Version 1.0.11");
 		}
 
 		public void SetupNetworking()
