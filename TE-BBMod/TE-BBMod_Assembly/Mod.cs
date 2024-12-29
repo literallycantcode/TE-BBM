@@ -297,10 +297,14 @@ namespace MysticFix
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Propeller":
+							block.GetComponent<ConfigurableJoint>().breakForce = 20000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque = 20000.0f;
 							BB.Prefab.myDamageType = DamageType.Blunt;
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "SmallPropeller":
+							block.GetComponent<ConfigurableJoint>().breakForce = 15000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque = 15000.0f;
 							BB.Prefab.myDamageType = DamageType.Blunt;
 							//Console.Log("Modified properties of: " + block.name);
 							break;
@@ -398,6 +402,11 @@ namespace MysticFix
 							}
 							//Console.Log("Modified properties of: " + block.name);
 							break;
+						case "SkateWheel":
+							block.GetComponent<ConfigurableJoint>().breakForce = 45000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque = 45000.0f;
+							//Console.Log("Modified properties of: " + block.name);
+							break;
 					}
 				}
 
@@ -449,7 +458,6 @@ namespace MysticFix
 				}
 				if (block.name == "Grabber")
 				{
-					if (block.GetComponent<ExplosionStopper>() == null) { block.AddComponent<ExplosionStopper>(); }
 					if (block.GetComponent<GrabberModifier>() == null) { block.AddComponent<GrabberModifier>(); }
 				}
 
@@ -475,7 +483,7 @@ namespace MysticFix
 			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 			StatMaster.Rules.DisableFire = true;
 			
-			Console.Log("Loaded TE-BBMod Version 1.0.11");
+			Console.Log("Loaded TE-BBMod Version 1.0.12");
 		}
 
 		public void SetupNetworking()

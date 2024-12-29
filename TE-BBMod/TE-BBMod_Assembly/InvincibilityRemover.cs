@@ -77,7 +77,6 @@ namespace MysticFix
                                 HJ.breakForce = 100000;
                                 HJ.breakTorque = 100000;
                             }
-
                         }
                        
                         if (fcounter == 5)

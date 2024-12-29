@@ -11,8 +11,6 @@ namespace MysticFix
     public class GrabberModifier : MonoBehaviour
     {
         private BlockBehaviour BB;
-        private int fcounter;
-        private bool firstframe = false;
         private MMenu GrabberMenu;
         private int GrabberSelector = 0;
         public float force = 13750.0f;
@@ -29,17 +27,17 @@ namespace MysticFix
 
         private void Awake()
         {
-            Console.Log("Grabber Modifier Added to "+gameObject.name);
+            Console.Log("Grabber Modifier Added to " + gameObject.name);
             BB = GetComponentInParent<BlockBehaviour>();
             if (this.BB == null)
-			{
-                Console.Log("No block behavior, destroying the object");
-				UnityEngine.Object.Destroy(this);
-			}
-            GrabberMenu = BB.AddMenu("Mode", GrabberSelector, grabberModes, false);
-            GrabberMenu.ValueChanged += (ValueHandler)(value => 
             {
-                selectedmode=value;
+                Console.Log("No block behavior, destroying the object");
+                UnityEngine.Object.Destroy(this);
+            }
+            GrabberMenu = BB.AddMenu("Mode", GrabberSelector, grabberModes, false);
+            GrabberMenu.ValueChanged += (ValueHandler)(value =>
+            {
+                selectedmode = value;
                 switch (value)
                 {
                     case 0:
@@ -52,31 +50,33 @@ namespace MysticFix
                         force = 150000.0f;
                         break;
                     case 3:
-                        force = 200000.0f;
+                        force = 500000.0f;
                         break;
-                } 
+                }
             });
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (!StatMaster.isClient || StatMaster.isLocalSim)
             {
                 if (BB.SimPhysics)
                 {
-                    if (selectedmode == 0)
-                        return;
-                    if (!firstframe)
+                    JoinOnTriggerBlock componentInChildren = base.gameObject.GetComponentInChildren<JoinOnTriggerBlock>();
+                    if (componentInChildren != null && componentInChildren.isJoined)
                     {
-                        fcounter++;
+                        componentInChildren.currentJoint.projectionMode = (UnityEngine.JointProjectionMode)1;
+                        componentInChildren.currentJoint.projectionDistance = 1.25f;
+                        componentInChildren.currentJoint.projectionAngle = 100f;
+                    }
+                    if (selectedmode != 0)
+                    {
                         CJ = GetComponents<ConfigurableJoint>();
                         foreach (ConfigurableJoint joint in CJ)
                         {
                             joint.breakForce = force;
                             joint.breakTorque = force;
                         }
-                        if (fcounter == 10)
-                            firstframe = true;
                     }
                 }
             }

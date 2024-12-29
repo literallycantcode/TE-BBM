@@ -13,7 +13,7 @@ namespace MysticFix
             float VC = AD.velocityCap;
 
             //Mapper definition
-            MToggle ADtoggle = thisBlock.InternalObject.AddToggle("Disable Drag", "Disable drag", false);
+            MToggle ADtoggle = thisBlock.InternalObject.AddToggle("Disable Drag", "Disable drag", true);
             ADtoggle.Toggled += (bool value) => { AD.velocityCap = value ? 0 : VC; };
         }
     }

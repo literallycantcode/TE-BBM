@@ -38,7 +38,7 @@ namespace MysticFix
                 CJ = GetComponent<ConfigurableJoint>();
             }
         }
-        void Update()
+        void FixedUpdate()
         {
             if (!StatMaster.isClient || StatMaster.isLocalSim)
             {
@@ -70,5 +70,4 @@ namespace MysticFix
             }
         }
     }
-
 }
