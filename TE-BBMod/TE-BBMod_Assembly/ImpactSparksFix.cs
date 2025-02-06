@@ -50,6 +50,8 @@ namespace MysticFix
 				this.Hitsound.volume = 0.3f;
 				this.Hitsound.playOnAwake = false;
 				this.Hitsound.loop = false;
+				this.Hitsound.reverbZoneMix = 0.05f;
+				this.Hitsound.dopplerLevel = 0f;
 				this.SmallHitsound = this.BB.gameObject.AddComponent<AudioSource>();
 				this.SH.Add(Soundfiles.sh1);
 				this.SH.Add(Soundfiles.sh2);
@@ -64,6 +66,8 @@ namespace MysticFix
 				this.SmallHitsound.volume = 0.03f;
 				this.SmallHitsound.playOnAwake = false;
 				this.SmallHitsound.loop = false;
+				this.SmallHitsound.reverbZoneMix = 0.05f;
+				this.SmallHitsound.dopplerLevel = 0f;
 				Console.Log("Audio set up");
 			}
 		}
