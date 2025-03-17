@@ -19,7 +19,7 @@ namespace MysticFix
 
         private void Awake()
         {
-            Console.Log("Invincibility Remover Added to "+gameObject.name);
+            //Console.Log("Invincibility Remover Added to "+gameObject.name);
             BB = GetComponent<BlockBehaviour>();
             if (this.BB == null)
 			{

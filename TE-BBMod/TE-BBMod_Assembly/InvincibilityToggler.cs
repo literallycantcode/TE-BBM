@@ -19,7 +19,7 @@ namespace MysticFix
 
         private void Awake()
         {
-            Console.Log("Invincibility Toggler Added to "+gameObject.name);
+            //Console.Log("Invincibility Toggler Added to "+gameObject.name);
             BB = GetComponent<BlockBehaviour>();
             if (this.BB == null)
 			{

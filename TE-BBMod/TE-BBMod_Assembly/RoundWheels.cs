@@ -26,7 +26,7 @@ namespace MysticFix
 
         public void Awake()
         {
-            Console.Log("Round Wheels Added to "+gameObject.name);
+            //Console.Log("Round Wheels Added to "+gameObject.name);
             BB = GetComponent<BlockBehaviour>();
 
             //1.2.5 update compat

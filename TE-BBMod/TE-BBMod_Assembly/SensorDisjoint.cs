@@ -10,7 +10,7 @@ namespace MysticFix
     public class SensorDisjoint : MonoBehaviour
     {
         private BlockBehaviour BB;
-        private MSlider DS;
+        public MSlider DS;
         private Transform SensorPos;
         private float defaultAmount = 0;
         private void Awake()

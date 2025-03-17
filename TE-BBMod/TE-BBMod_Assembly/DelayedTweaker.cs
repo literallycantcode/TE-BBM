@@ -113,20 +113,23 @@ namespace MysticFix
                     switch (block.name)
                     {
                         case "Hinge":
+                            if (block.GetComponent<ConfigurableJoint>() != null)
+                            {
                             block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
+                            }
                             break;
                         case "Axle":
                             Component[] configurablejoints = BB.GetComponentsInChildren<ConfigurableJoint>();
                             Component[] hingejoints = BB.GetComponentsInChildren<HingeJoint>();
                             foreach( ConfigurableJoint cJoint in configurablejoints )
                             {
-                                cJoint.breakForce=55000.0f;
+                                cJoint.breakForce=50000.0f;
                                 cJoint.breakTorque=60000.0f;
                             }
                             foreach( HingeJoint hJoint in hingejoints )
                             {
-                                hJoint.breakForce=55000.0f;
+                                hJoint.breakForce=50000.0f;
                                 hJoint.breakTorque=60000.0f;
                             }
                             break;   

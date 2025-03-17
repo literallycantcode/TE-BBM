@@ -27,19 +27,19 @@ namespace MysticFix
             "Minimum",
             "Maximum",
         };
-        
+
 
         private void Awake()
         {
-            Console.Log("Friction Controller Added to "+gameObject.name);
+            //Console.Log("Friction Controller Added to "+gameObject.name);
             BB = GetComponentInParent<BlockBehaviour>();
             if (this.BB == null)
-			{
+            {
                 Console.Log("No block behavior, destroying the object");
-				UnityEngine.Object.Destroy(this);
-			}
+                UnityEngine.Object.Destroy(this);
+            }
             PCMenu = BB.AddMenu("Combine", PCselect, PCmenul, false);
-            PCMenu.ValueChanged += (ValueHandler)(value => 
+            PCMenu.ValueChanged += (ValueHandler)(value =>
             {
                 switch (value)
                 {
@@ -55,19 +55,20 @@ namespace MysticFix
                     case 3:
                         PC = PhysicMaterialCombine.Maximum;
                         break;
-                } 
+                }
             });
-            
-            MSlider frictionSlider = BB.AddSlider("Friction","Friction",grip,0.1f,4.0f, "", "x");
-            frictionSlider.ValueChanged += (float value) => {
-                grip=value;
+
+            MSlider frictionSlider = BB.AddSlider("Friction", "Friction", grip, 0.1f, 4.0f, "", "x");
+            frictionSlider.ValueChanged += (float value) =>
+            {
+                grip = value;
             };
 
             frictionSlider.DisplayInMapper = true;
             PCMenu.DisplayInMapper = true;
 
             if (!StatMaster.isClient || StatMaster.isLocalSim)
-                {
+            {
                 colliders = GetComponentsInChildren<Collider>();
                 foreach (Collider collider in colliders)
                 {
@@ -77,24 +78,29 @@ namespace MysticFix
                 }
             }
         }
-        private void Update()
+        private void FixedUpdate()
         {
-            if (!StatMaster.isClient || StatMaster.isLocalSim)
+            if (!firstframe)
             {
-                if (BB.isSimulating)
+                if (!StatMaster.isClient || StatMaster.isLocalSim)
                 {
-                    if (!firstframe)
+                    if (BB.isSimulating)
                     {
-                        //modifiying collider at runtime too because roundwheel colliders are generated at runtime
-                        colliders = GetComponentsInChildren<Collider>();
+
+
+                        if (fcounter > 5)
+                        { fcounter++; }
+                        else
+                            //modifiying collider at runtime too because roundwheel colliders are generated at runtime
+                            colliders = GetComponentsInChildren<Collider>();
                         foreach (Collider collider in colliders)
                         {
                             collider.material.dynamicFriction = grip;
                             collider.material.staticFriction = grip;
                             collider.material.frictionCombine = PC;
                         }
-                        if (fcounter == 10)
-                            firstframe = true;
+                        if (grip < 0.1f || grip > 4) Console.Log(gameObject.name + " is set to " + grip + " friction");
+                        firstframe = true;
                     }
                 }
             }

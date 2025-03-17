@@ -106,53 +106,37 @@ namespace MysticFix
 				Component[] colliders;
 				BlockBehaviour BB = toInit.InternalObject;
 				GameObject block = BB.gameObject;
-				Console.Log("Block init : '" + block.name + "'");
+				//Console.Log("Block init : '" + block.name + "'");
 
 				//tick damage removal "borrowed" from Block Health Removal Tool
 				if (BB.BlockHealth != null)
 				{
 					if (block.name != "Crossbow") BB.BlockHealth.health = -1;
 					else BB.BlockHealth.health = Single.MaxValue;
-					Console.Log("Tick damage removed");
+					//Console.Log("Tick damage removed");
 				}
 				if (BB.BreakOnImpact != null)
 				{
 					BB.BreakOnImpact.reduceMultiplier = 0;
 					BB.BreakOnImpact.firstBreakForce = Single.MaxValue;
-					Console.Log("break force multiplier removed");
+					//Console.Log("break force multiplier removed");
 				}
 				if (BB.iceTag != null)
 				{
 					BB.iceTag.takesDamage = false;
-					Console.Log("Freeze damage removed");
+					//Console.Log("Freeze damage removed");
 				}
 				//starting to work on block tweaks
 				if (!StatMaster.isClient || StatMaster.isLocalSim)
 				{
 					if (BB.SimPhysics)
 					{
+						if (block.GetComponent<AntiCheat>() == null) {block.AddComponent<AntiCheat>();}
 						if (block.GetComponent<DelayedTweaker>() == null) { block.AddComponent<DelayedTweaker>(); }
 					}
 
 					switch (block.name)
 					{
-						/*
-						case "Drill":
-						case "WheelUnpowered":
-						case "ShrapnelCannon":
-						case "Torch":
-						case "GripPad":
-						case "Log":
-						case "CogMediumUnpowered":
-						case "StartingBlock":
-						case "Plow":
-						case "HalfPipe":
-						case "Cannon":
-						case "WaterCannon":
-						case "Axle":
-							Console.Log("Did Nothing To: " + block.name);
-							break;
-						*/
 
 						case "MetalBlade":
 							BB.Prefab.myDamageType = DamageType.Blunt;
@@ -185,6 +169,7 @@ namespace MysticFix
 						case "Wheel":
 							block.GetComponent<HingeJoint>().breakForce = 60000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 60000.0f;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Suspension":
@@ -198,40 +183,47 @@ namespace MysticFix
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "SmallWheel":
-							block.GetComponent<HingeJoint>().breakForce = 60000.0f;
-							block.GetComponent<HingeJoint>().breakTorque = 60000.0f;
+							block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
+							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "LargeWheel":
 							block.GetComponent<HingeJoint>().breakForce = 70000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 70000.0f;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "CogMediumPowered":
 							block.GetComponent<HingeJoint>().breakForce = 90000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 90000.0f;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						
 						case "CogLargeUnpowered":
 							block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "LargeWheelUnpowered":
 							block.GetComponent<HingeJoint>().breakForce = 60000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 60000.0f;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "FlyingBlock":
 							block.GetComponent<ConfigurableJoint>().breakForce = 20000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 20000.0f;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "WingPanel":
 							block.GetComponent<Rigidbody>().mass = 1.0f;
 							block.GetComponent<ConfigurableJoint>().breakForce = 40000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 40000.0f;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Swivel":
@@ -243,6 +235,7 @@ namespace MysticFix
 						case "Wing":
 							block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Ballast":
@@ -300,30 +293,34 @@ namespace MysticFix
 							block.GetComponent<ConfigurableJoint>().breakForce = 20000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 20000.0f;
 							BB.Prefab.myDamageType = DamageType.Blunt;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "SmallPropeller":
 							block.GetComponent<ConfigurableJoint>().breakForce = 15000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 15000.0f;
 							BB.Prefab.myDamageType = DamageType.Blunt;
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "SingleWoodenBlock":
 							configurablejoints = block.GetComponentsInChildren<ConfigurableJoint>();
 							foreach (ConfigurableJoint joint in configurablejoints)
 							{
-								joint.breakForce = 55000.0f;
-								joint.breakTorque = 55000.0f;
+								joint.breakForce = 50000.0f;
+								joint.breakTorque = 50000.0f;
 							}
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "DoubleWoodenBlock":
 							configurablejoints = block.GetComponentsInChildren<ConfigurableJoint>();
 							foreach (ConfigurableJoint joint in configurablejoints)
 							{
-								joint.breakForce = 50000.0f;
-								joint.breakTorque = 50000.0f;
+								joint.breakForce = 45000.0f;
+								joint.breakTorque = 45000.0f;
 							}
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "WoodenPole":
@@ -333,6 +330,7 @@ namespace MysticFix
 								joint.breakForce = 40000.0f;
 								joint.breakTorque = 40000.0f;
 							}
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "ArmorPlateSmall":
@@ -400,6 +398,7 @@ namespace MysticFix
 								collider.material.dynamicFriction = 0.1f;
 								collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 							}
+							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "SkateWheel":
@@ -407,6 +406,33 @@ namespace MysticFix
 							block.GetComponent<ConfigurableJoint>().breakTorque = 45000.0f;
 							//Console.Log("Modified properties of: " + block.name);
 							break;
+						case "Slider":
+						case "RopeWinch":
+						case "Crossbow":
+						case "GripPad":
+						case "DragBlock":
+						case "Balloon":
+						case "SqrBalloon":
+						case "WheelUnpowered":
+						case "CogMediumUnpowered":
+						case "BuildSurface":
+						case "Log":
+						case "Cannon":
+						case "ShrapnelCannon":
+							UnityEngine.Object.Destroy(BB.fireTag);
+							break;	
+						/*
+						case "Drill":
+						case "Torch":
+						case "GripPad":
+						case "StartingBlock":
+						case "Plow":
+						case "HalfPipe":
+						case "WaterCannon":
+						case "Axle":
+							Console.Log("Did Nothing To: " + block.name);
+							break;
+						*/
 					}
 				}
 
@@ -483,7 +509,7 @@ namespace MysticFix
 			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 			StatMaster.Rules.DisableFire = true;
 			
-			Console.Log("Loaded TE-BBMod Version 1.0.13");
+			Console.Log("Loaded TE-BBMod Version 1.1.0");
 		}
 
 		public void SetupNetworking()

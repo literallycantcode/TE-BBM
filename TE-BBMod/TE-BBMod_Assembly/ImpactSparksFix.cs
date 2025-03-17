@@ -27,7 +27,7 @@ namespace MysticFix
 
 		public void Awake()
 		{
-			Console.Log("Impact Sparks Added to " + gameObject.name);
+			//Console.Log("Impact Sparks Added to " + gameObject.name);
 			BB = GetComponent<BlockBehaviour>();
 			this.initSparkFX();
 
@@ -68,7 +68,6 @@ namespace MysticFix
 				this.SmallHitsound.loop = false;
 				this.SmallHitsound.reverbZoneMix = 0.05f;
 				this.SmallHitsound.dopplerLevel = 0f;
-				Console.Log("Audio set up");
 			}
 		}
 
