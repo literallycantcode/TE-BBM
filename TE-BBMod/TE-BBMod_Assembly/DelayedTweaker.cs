@@ -132,7 +132,37 @@ namespace MysticFix
                                 hJoint.breakForce=50000.0f;
                                 hJoint.breakTorque=60000.0f;
                             }
-                            break;   
+                            break;
+						case "Slider":
+						case "RopeWinch":
+						case "Crossbow":
+						case "GripPad":
+						case "DragBlock":
+						case "Balloon":
+						case "SqrBalloon":
+						case "WheelUnpowered":
+						case "CogMediumUnpowered":
+						case "BuildSurface":
+						case "Log":
+						case "Cannon":
+						case "ShrapnelCannon":
+                        case "WoodenPole":
+                        case "DoubleWoodenBlock":
+                        case "SingleWoodenBlock":
+                        case "SmallPropeller":
+						case "Propeller":
+						case "Wing":
+						case "WingPanel":
+						case "FlyingBlock":
+						case "LargeWheelUnpowered":
+						case "CogLargeUnpowered":
+						case "CogMediumPowered":
+						case "LargeWheel":
+						case "SmallWheel":
+						case "Wheel":
+                        //case "WoodenPanel": Handeled in Mod.cs due to parenting shenanigans
+							UnityEngine.Object.Destroy(BB.fireTag);
+							break;
                     }
                 }
                 Destroy(this);
@@ -140,4 +170,3 @@ namespace MysticFix
         }
     }
 }
-

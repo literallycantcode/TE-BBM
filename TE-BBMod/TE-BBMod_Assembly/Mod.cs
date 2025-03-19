@@ -169,7 +169,6 @@ namespace MysticFix
 						case "Wheel":
 							block.GetComponent<HingeJoint>().breakForce = 60000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 60000.0f;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Suspension":
@@ -185,45 +184,37 @@ namespace MysticFix
 						case "SmallWheel":
 							block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "LargeWheel":
 							block.GetComponent<HingeJoint>().breakForce = 70000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 70000.0f;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "CogMediumPowered":
 							block.GetComponent<HingeJoint>().breakForce = 90000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 90000.0f;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
-						
 						case "CogLargeUnpowered":
 							block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "LargeWheelUnpowered":
 							block.GetComponent<HingeJoint>().breakForce = 60000.0f;
 							block.GetComponent<HingeJoint>().breakTorque = 60000.0f;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "FlyingBlock":
 							block.GetComponent<ConfigurableJoint>().breakForce = 20000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 20000.0f;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "WingPanel":
 							block.GetComponent<Rigidbody>().mass = 1.0f;
 							block.GetComponent<ConfigurableJoint>().breakForce = 40000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 40000.0f;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Swivel":
@@ -235,7 +226,6 @@ namespace MysticFix
 						case "Wing":
 							block.GetComponent<ConfigurableJoint>().breakForce = 60000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 60000.0f;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "Ballast":
@@ -293,14 +283,12 @@ namespace MysticFix
 							block.GetComponent<ConfigurableJoint>().breakForce = 20000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 20000.0f;
 							BB.Prefab.myDamageType = DamageType.Blunt;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "SmallPropeller":
 							block.GetComponent<ConfigurableJoint>().breakForce = 15000.0f;
 							block.GetComponent<ConfigurableJoint>().breakTorque = 15000.0f;
 							BB.Prefab.myDamageType = DamageType.Blunt;
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "SingleWoodenBlock":
@@ -310,7 +298,6 @@ namespace MysticFix
 								joint.breakForce = 50000.0f;
 								joint.breakTorque = 50000.0f;
 							}
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "DoubleWoodenBlock":
@@ -320,7 +307,6 @@ namespace MysticFix
 								joint.breakForce = 45000.0f;
 								joint.breakTorque = 45000.0f;
 							}
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "WoodenPole":
@@ -330,7 +316,6 @@ namespace MysticFix
 								joint.breakForce = 40000.0f;
 								joint.breakTorque = 40000.0f;
 							}
-							UnityEngine.Object.Destroy(BB.fireTag);
 							//Console.Log("Modified properties of: " + block.name);
 							break;
 						case "ArmorPlateSmall":
@@ -406,12 +391,13 @@ namespace MysticFix
 							block.GetComponent<ConfigurableJoint>().breakTorque = 45000.0f;
 							//Console.Log("Modified properties of: " + block.name);
 							break;
+						/*
 						case "Slider":
 						case "RopeWinch":
 						case "Crossbow":
 						case "GripPad":
 						case "DragBlock":
-						case "Balloon":
+						//case "Balloon": Causes soft crash if StringLength == 0
 						case "SqrBalloon":
 						case "WheelUnpowered":
 						case "CogMediumUnpowered":
@@ -509,7 +495,7 @@ namespace MysticFix
 			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 			StatMaster.Rules.DisableFire = true;
 			
-			Console.Log("Loaded TE-BBMod Version 1.1.0");
+			Console.Log("Loaded TE-BBMod Version 1.1.1");
 		}
 
 		public void SetupNetworking()
