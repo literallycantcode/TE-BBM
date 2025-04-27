@@ -495,7 +495,7 @@ namespace MysticFix
 			OptionsMaster.BesiegeConfig.MorePrecisePhysics = false;
 			StatMaster.Rules.DisableFire = true;
 			
-			Console.Log("Loaded TE-BBMod Version 1.1.1");
+			Console.Log("Loaded TE-BBMod Version 1.1.2");
 		}
 
 		public void SetupNetworking()

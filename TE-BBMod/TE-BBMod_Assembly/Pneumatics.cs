@@ -23,9 +23,6 @@ namespace MysticFix
         private MKey ExtendKey;
         private MKey RetractKey;
         private MMenu MoveMode;
-        private MMenu SoundMenu;
-        private MMenu SoundMode;
-        private MToggle HydraSound;
         private MSlider SpringSlider;
         private MSlider FeedSlider;
         private MSlider ExtendLimitSlider;
@@ -38,36 +35,12 @@ namespace MysticFix
         private float RetractLimit = 1f;
         private float Dampening = 1.2f;
         private int selectedmovemode = 0;
-        private int selectedsound;
-        private int soundmode;
-
+        
         private bool Break = false;
-        public bool HSound;
         private bool HasBroken = false;
         private bool EKpressed = false;
         private bool RKpressed = false;
         private bool isFirstFrame = true;
-
-        List<AudioClip> ASounds = new List<AudioClip>()
-        {
-            null,
-            ModResource.GetAudioClip("air1"),
-            ModResource.GetAudioClip("air2"),
-            ModResource.GetAudioClip("air3"),
-            ModResource.GetAudioClip("air4"),
-            ModResource.GetAudioClip("air5"),
-            ModResource.GetAudioClip("air6"),
-            ModResource.GetAudioClip("air7"),
-            ModResource.GetAudioClip("air8"),
-            ModResource.GetAudioClip("air9"),
-            ModResource.GetAudioClip("air10"),
-            ModResource.GetAudioClip("air11"),
-            ModResource.GetAudioClip("air12"),
-            ModResource.GetAudioClip("air13"),
-        };
-
-        private AudioSource Airsound;
-        private AudioSource Stopsound;
         private AudioSource Breaksound;
 
         internal static List<string> MoveModes = new List<string>()
@@ -77,43 +50,11 @@ namespace MysticFix
             "Pneumatic",
         };
 
-        internal static List<string> Soundmode = new List<string>()
-        {
-            "on extend",
-            "on retract",
-            "on both",
-        };
-
-        internal static List<string> FireSound = new List<string>()
-        {
-            "None",
-            "TUNGTSS",
-            "SSAAAA_TSHUH",
-            "PSHH",
-            "BSUH",
-            "TSEE",
-            "TKSHHHH",
-            "TSSSIT",
-            "TUUIIY",
-            "PFFFUUUI",
-            "PFUUT",
-            "TFUU",
-            "TFOOINGING",
-            "JUDGEBURST",
-        };
-
-        internal static MessageType A1;
-        internal static MessageType LP;
         internal static MessageType LS;
-
 
         internal static void SetupNetworking()
         {
-            A1 = ModNetworking.CreateMessageType(DataType.Block, DataType.Integer);
-            LP = ModNetworking.CreateMessageType(DataType.Block);
-            LS = ModNetworking.CreateMessageType(DataType.Block, DataType.Boolean);
-            ModNetworking.Callbacks[A1] += PlaySoundClient;
-            ModNetworking.Callbacks[LP] += PlayLoopSoundClient;
+            LS = ModNetworking.CreateMessageType(DataType.Block);
             ModNetworking.Callbacks[LS] += StopLoopSoundClient;
         }
 
@@ -138,8 +79,8 @@ namespace MysticFix
                             break;
 
                         case 2: //Pneumatic
-                            CJ.breakForce = 60000;
-                            CJ.breakTorque = 60000;
+                            CJ.breakForce = 80000;
+                            CJ.breakTorque = 80000;
                             break;
                     }
                     float limit = Mathf.Max(ExtendLimit, RetractLimit);
@@ -178,54 +119,7 @@ namespace MysticFix
             DampSlider = SC.AddSlider("Dampening", "Dampening", Dampening, 1.2f, 10f);
             DampSlider.ValueChanged += (float value) => { Dampening = value * 10000; };
 
-            HydraSound = SC.AddToggle("UseSound", "Hydra Sound", HSound);
-            HydraSound.Toggled += (bool value) => { HSound = value; };
-
-            SoundMenu = SC.AddMenu("Firesound", selectedsound, FireSound, false);
-            SoundMenu.ValueChanged += (ValueHandler)(value => { selectedsound = value; });
-
-            SoundMode = SC.AddMenu("SoundMode", soundmode, Soundmode, false);
-            SoundMode.ValueChanged += (ValueHandler)(value => { soundmode = value; });
-
-            //DisplayInMapper config
             MoveMode.DisplayInMapper = true;
-
-            Airsound = SC.gameObject.AddComponent<AudioSource>();
-            Airsound.rolloffMode = AudioRolloffMode.Linear;
-            Airsound.spatialBlend = 1;
-            Airsound.playOnAwake = false;
-
-            switch (selectedmovemode)
-            {
-                case 0: //None
-                    break;
-
-                case 1: //Hydraulic
-                    Airsound.clip = ModResource.GetAudioClip("bigmotor_loop");
-                    Airsound.loop = true;
-                    Airsound.maxDistance = 100f;
-                    Airsound.volume = 0.2f;
-                    Airsound.pitch = Feed / 8;
-                    break;
-
-                case 2: //Pneumatic
-                    Airsound.clip = ASounds[selectedsound];
-                    Airsound.loop = false;
-                    Airsound.maxDistance = 150f;
-                    Airsound.volume = 0.3f;
-                    break;
-            }
-            
-            Stopsound = SC.gameObject.AddComponent<AudioSource>();
-            Stopsound.spatialBlend = 1;
-            Stopsound.maxDistance = 150f;
-            Stopsound.rolloffMode = AudioRolloffMode.Linear;
-            Stopsound.volume = 0.3f;
-            Stopsound.playOnAwake = false;
-            Stopsound.clip = ModResource.GetAudioClip("bigmotor_Stop");
-            Stopsound.loop = false;
-            Stopsound.pitch = Feed / 8;
-
             Breaksound = SC.gameObject.AddComponent<AudioSource>();
             Breaksound.spatialBlend = 1;
             Breaksound.maxDistance = 150f;
@@ -233,6 +127,7 @@ namespace MysticFix
             Breaksound.volume = 0.3f;
             Breaksound.playOnAwake = false;
             Breaksound.clip = ModResource.GetAudioClip("air_Broken");
+            Breaksound.reverbZoneMix = 0.05f;
             
             thisblock = Block.From(SC);
         }
@@ -248,9 +143,6 @@ namespace MysticFix
                     ExtendLimitSlider.DisplayInMapper = false;
                     RetractLimitSlider.DisplayInMapper = false;
                     DampSlider.DisplayInMapper = false;
-                    HydraSound.DisplayInMapper = false;
-                    SoundMenu.DisplayInMapper = false;
-                    SoundMode.DisplayInMapper = false;
                     //SC.SpringSlider can be null on stripped blocks in multiverse.
                     if (SpringSlider != null) SpringSlider.SetRange(0, 3f);
                     if (SpringSlider != null && SpringSlider.Value > SpringSlider.Max) SpringSlider.SetValue(SpringSlider.Max);
@@ -262,10 +154,7 @@ namespace MysticFix
                     FeedSlider.DisplayInMapper = true;
                     ExtendLimitSlider.DisplayInMapper = true;
                     RetractLimitSlider.DisplayInMapper = true;
-                    DampSlider.DisplayInMapper = true;
-                    HydraSound.DisplayInMapper = true;
-                    SoundMenu.DisplayInMapper = false;
-                    SoundMode.DisplayInMapper = false;
+                    DampSlider.DisplayInMapper = false;
                     FeedSlider.SetRange(0f, 25f);
                     //SC.SpringSlider can be null on stripped blocks in multiverse.
                     if (SpringSlider != null) SpringSlider.SetRange(0, 200f);
@@ -277,11 +166,7 @@ namespace MysticFix
                     FeedSlider.DisplayInMapper = true;
                     ExtendLimitSlider.DisplayInMapper = true;
                     RetractLimitSlider.DisplayInMapper = true;
-                    DampSlider.DisplayInMapper = true;
-                    HydraSound.DisplayInMapper = false;
-                    SoundMenu.DisplayInMapper = true;
-                    SoundMode.DisplayInMapper = true;
-                    HSound = false;
+                    DampSlider.DisplayInMapper = false;
                     FeedSlider.SetRange(0f, 10f);
                     if (FeedSlider.Value > FeedSlider.Max) FeedSlider.SetValue(FeedSlider.Max);
                     //SC.SpringSlider can be null on stripped blocks in multiverse.
@@ -347,14 +232,7 @@ namespace MysticFix
                                         if ((ExtendKey.IsHeld || ExtendKey.EmulationHeld()) && !RKpressed)
                                         {
                                             target = -ExtendLimit;
-                                            if (!EKpressed)
-                                            {
-                                                EKpressed = true;                                              
-                                                if (HSound)
-                                                {
-                                                    PlaySoundLoop();
-                                                }
-                                            }
+                                            
                                         }
                                         else
                                         {
@@ -364,10 +242,7 @@ namespace MysticFix
                                                     return;
 
                                                 EKpressed = false;
-                                                if (HSound)
-                                                {
-                                                    StopSoundLoop(false);
-                                                }
+                                                
                                             }
                                         }
 
@@ -378,10 +253,7 @@ namespace MysticFix
                                             if (!RKpressed)
                                             {
                                                 RKpressed = true;
-                                                if (HSound)
-                                                {
-                                                    PlaySoundLoop();
-                                                }
+                                                
                                             }
                                         }
                                         else
@@ -391,10 +263,7 @@ namespace MysticFix
                                                 if (EKpressed)
                                                     return;
                                                 RKpressed = false;
-                                                if (HSound)
-                                                {
-                                                    StopSoundLoop(false);
-                                                }
+                                                
                                             }
                                         }
                                         break;
@@ -406,10 +275,7 @@ namespace MysticFix
                                             if (!EKpressed)
                                             {
                                                 EKpressed = true;
-                                                if (soundmode == 0 || soundmode == 2)
-                                                {
-                                                    PlaySound();
-                                                }
+                                                
                                             }
                                         }
                                         else
@@ -429,10 +295,7 @@ namespace MysticFix
                                             if (!RKpressed)
                                             {
                                                 RKpressed = true;
-                                                if (soundmode == 1 || soundmode == 2)
-                                                {
-                                                    PlaySound();
-                                                }
+                                        
                                             }
                                         }
                                         else
@@ -458,7 +321,7 @@ namespace MysticFix
                             if (HasBroken == false)
                             {
                                 HasBroken = true;
-                                StopSoundLoop(true);
+                                StopSoundLoop();
                             }
                         }
                     }
@@ -466,80 +329,24 @@ namespace MysticFix
             }
         }
 
-        private void PlaySound()
-        {
-            if (ASounds[selectedsound] == null)
-                return;
-            this.Airsound.clip = ASounds[selectedsound];
-            this.Airsound.pitch = Time.timeScale;
-            this.Airsound.Play();
-
-            if (StatMaster.isClient || StatMaster.isLocalSim)
-                return;
-            ModNetworking.SendToAll(A1.CreateMessage(thisblock,selectedsound));
-        }
-
-        private void PlaySoundLoop()
-        {
-            this.Airsound.clip = ModResource.GetAudioClip("bigmotor_loop");
-            this.Airsound.Play();
-
-            if (StatMaster.isClient || StatMaster.isLocalSim)
-                return;
-            ModNetworking.SendToAll(LP.CreateMessage(thisblock));
-            //Debug.Log("Play loop");
-        }
-
-        public void StopSoundLoop(bool broke)
+        public void StopSoundLoop()
         {
             //Debug.Log("AIRSOUNDLOOP STOP");
-            this.Airsound.Stop();
+            Breaksound.pitch = Time.timeScale;
+            Breaksound.Play();
 
-            if (broke)
-            {
-                Breaksound.pitch = Time.timeScale;
-                Breaksound.Play();
-            }
-            else
-            {
-                Stopsound.Play();               
-            }
-
-            if (StatMaster.isClient || StatMaster.isLocalSim)
-                return;
-            ModNetworking.SendToAll(LS.CreateMessage(thisblock, broke));
+            if (StatMaster.isClient || StatMaster.isLocalSim) return;
+            ModNetworking.SendToAll(LS.CreateMessage(thisblock));
             //Debug.Log("Stop loop");
         }
-
-        public static void PlaySoundClient(Message m)
-        {
-            Block BL = (Block)m.GetData(0);
-            int sound = (int)m.GetData(1);
-            BL.InternalObject.GetComponent<Pneumatics>().Airsound.clip = BL.InternalObject.GetComponent<Pneumatics>().ASounds[sound];
-            BL.InternalObject.GetComponent<Pneumatics>().Airsound.Play();
-            //Debug.Log("Playsound");
-        }
-
-        public static void PlayLoopSoundClient(Message m)
-        {
-            Block BL = (Block)m.GetData(0);
-            BL.InternalObject.GetComponent<Pneumatics>().Airsound.clip = ModResource.GetAudioClip("bigmotor_loop");
-            BL.InternalObject.GetComponent<Pneumatics>().Airsound.Play();
-            //Debug.Log("Playsound LOOP");
-        }
-
+        
         public static void StopLoopSoundClient(Message m)
         {
-            Block BL = (Block)m.GetData(0);
+            Block BL = (Block)m.GetData(0); 
             
             Pneumatics IO = BL.InternalObject.GetComponent<Pneumatics>();
-            IO.Break = (bool)m.GetData(1);
-            IO.Airsound.clip = ModResource.GetAudioClip("bigmotor_Stop");
-            IO.Airsound.Stop();
-            //Debug.Log("STOP SOUND");
-
-            if (IO.HSound) { IO.Stopsound.Play(); }
-            if (IO.Break) { IO.Breaksound.Play(); }           
+            IO.Breaksound.Play();
+            //Debug.Log("STOP SOUND");           
         }
     }
 }

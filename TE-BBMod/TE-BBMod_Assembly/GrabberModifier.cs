@@ -27,7 +27,7 @@ namespace MysticFix
 
         private void Awake()
         {
-            Console.Log("Grabber Modifier Added to " + gameObject.name);
+            // Console.Log("Grabber Modifier Added to " + gameObject.name);
             BB = GetComponentInParent<BlockBehaviour>();
             if (this.BB == null)
             {

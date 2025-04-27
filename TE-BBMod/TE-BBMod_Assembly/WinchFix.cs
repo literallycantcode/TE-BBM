@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Modding;
 using Modding.Blocks;
+using System;
+using Console = Modding.ModConsole;
 
 namespace MysticFix
 {
@@ -46,7 +48,19 @@ namespace MysticFix
             //If the block this Component is attached to is a rope, snap it.
             if (SC.Prefab.Type == BlockType.RopeWinch) SC.Snap();
             //If the block this Component is attached to is a spring, disable it.
-            if (SC.Prefab.Type == BlockType.Spring) SC.gameObject.SetActive(false);
+            if (SC.Prefab.Type == BlockType.Spring) 
+            {
+                GameObject startPointGameObject = SC.startPoint.gameObject;
+                GameObject endPointGameObject = SC.endPoint.gameObject;
+                GameObject springCylinder = SC.cylinder.gameObject;
+
+                startPointGameObject.SetActive(false);
+                endPointGameObject.SetActive(false);
+                springCylinder.GetComponent<MeshRenderer>().enabled = false;
+                springCylinder.GetComponent<AudioSource>().enabled = false;
+                SC.gameObject.SetActive(false);
+            }        
+
             //WinchFix does nothing after the the snap, so it can be destroyed.
             Destroy(this);
         }
