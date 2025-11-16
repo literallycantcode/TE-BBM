@@ -63,19 +63,23 @@ namespace MysticFix
                 if (BB.SimPhysics)
                 {
                     JoinOnTriggerBlock componentInChildren = base.gameObject.GetComponentInChildren<JoinOnTriggerBlock>();
+                    
                     if (componentInChildren != null && componentInChildren.isJoined)
                     {
-                        componentInChildren.currentJoint.projectionMode = (UnityEngine.JointProjectionMode)1;
-                        componentInChildren.currentJoint.projectionDistance = 1.25f;
-                        componentInChildren.currentJoint.projectionAngle = 100f;
-                    }
-                    if (selectedmode != 0)
-                    {
-                        CJ = GetComponents<ConfigurableJoint>();
-                        foreach (ConfigurableJoint joint in CJ)
+                        if (selectedmode == 0)
                         {
-                            joint.breakForce = force;
-                            joint.breakTorque = force;
+                            componentInChildren.currentJoint.projectionMode = (UnityEngine.JointProjectionMode)1;
+                            componentInChildren.currentJoint.projectionDistance = 1.25f;
+                            componentInChildren.currentJoint.projectionAngle = 100f;
+                        }
+                        else
+                        {
+                            CJ = GetComponents<ConfigurableJoint>();
+                            foreach (ConfigurableJoint joint in CJ)
+                            {
+                                joint.breakForce = force;
+                                joint.breakTorque = force;
+                            }
                         }
                     }
                 }
